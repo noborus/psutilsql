@@ -17,8 +17,21 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defaultQuery := "SELECT * FROM disk"
-
-		v, err := disk.Partitions(false)
+		var err error
+		var all bool
+		if all, err = cmd.PersistentFlags().GetBool("all"); err != nil {
+			return err
+		}
+		var usage string
+ 		if usage, err = cmd.PersistentFlags().GetString("usage"); err != nil {
+			return err
+		}
+		var v interface{}
+		if usage != "" {
+			v, err = disk.Usage(usage)
+		} else {
+			v, err = disk.Partitions(all)
+		}
 		if err != nil {
 			return err
 		}
@@ -31,5 +44,8 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
+	diskCmd.PersistentFlags().BoolP("all", "a", false, "all disk")
+	diskCmd.PersistentFlags().StringP("usage", "u", "", "file system usage")
+
 	rootCmd.AddCommand(diskCmd)
 }

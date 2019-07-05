@@ -11,8 +11,8 @@ type ProcessImporter struct {
 	readers []*ProcessReader
 }
 
-func NewProcessImporter(ex bool) (*ProcessImporter, error) {
-	pr, err := NewProcessReader(ex)
+func NewProcessImporter(ex bool, query string) (*ProcessImporter, error) {
+	pr, err := NewProcessReader(ex, query)
 	if err != nil {
 		return nil, err
 	}
@@ -49,25 +49,22 @@ type ProcessReader struct {
 	tableName string
 	names     []string
 	types     []string
+	funcs     []func(p *process.Process) []interface{}
 	data      [][]interface{}
 }
 
-func NewProcessReader(ex bool) (*ProcessReader, error) {
+func NewProcessReader(ex bool, query string) (*ProcessReader, error) {
 	pr := &ProcessReader{}
 	pr.tableName = "process"
+	columns := []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFO, COMMAND}
 	if ex {
-		ProcessColumn[MEMORYINFOEX].enable = true
-		ProcessColumn[MEMORYINFO].enable = false
-	} else {
-		ProcessColumn[MEMORYINFOEX].enable = false
-		ProcessColumn[MEMORYINFO].enable = true
+		columns = []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFOEX, COMMAND}
 	}
-	for _, col := range ProcessColumn {
-		if !col.enable {
-			continue
-		}
+	for _, cn := range columns {
+		col := ProcessColumn[cn]
 		pr.names = append(pr.names, col.names...)
 		pr.types = append(pr.types, col.types...)
+		pr.funcs = append(pr.funcs, col.getFunc)
 	}
 
 	processes, err := process.Processes()
@@ -77,11 +74,8 @@ func NewProcessReader(ex bool) (*ProcessReader, error) {
 	pr.data = make([][]interface{}, len(processes))
 	for i, p := range processes {
 		pr.data[i] = []interface{}{}
-		for _, col := range ProcessColumn {
-			if !col.enable {
-				continue
-			}
-			pr.data[i] = append(pr.data[i], col.getFunc(p)...)
+		for _, getFunc := range pr.funcs {
+			pr.data[i] = append(pr.data[i], getFunc(p)...)
 		}
 	}
 

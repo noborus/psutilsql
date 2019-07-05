@@ -2,6 +2,7 @@ package psutilsql
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -31,161 +32,142 @@ const (
 	GIDS
 	MEMORYINFOEX
 	MEMORYINFO
+	IOCOUNTERS
+	FOREGROUND
+	BACKGROUND
+	ISRUNNING
 	COMMAND
 )
 
 type processColumn struct {
-	column  ColumnNum
-	enable  bool
 	names   []string
 	types   []string
 	getFunc func(p *process.Process) []interface{}
 }
 
-var ProcessColumn = []processColumn{
-	{
-		column:  PID,
-		enable:  true,
+var ProcessColumn = map[ColumnNum]processColumn{
+	PID: {
 		names:   []string{"pid"},
 		types:   []string{"int"},
 		getFunc: getPid,
 	},
-	{
-		column:  NAME,
-		enable:  true,
+	NAME: {
 		names:   []string{"name"},
 		types:   []string{"text"},
 		getFunc: getName,
 	},
-	{
-		column:  CPU,
-		enable:  true,
+	CPU: {
 		names:   []string{"CPU"},
 		types:   []string{"float"},
 		getFunc: cpuPercent,
 	},
-	{
-		column:  MEM,
-		enable:  true,
+	MEM: {
 		names:   []string{"MEM"},
 		types:   []string{"float"},
 		getFunc: memPercent,
 	},
-	{
-		column:  STATUS,
-		enable:  true,
+	STATUS: {
 		names:   []string{"STATUS"},
 		types:   []string{"text"},
 		getFunc: status,
 	},
-	{
-		column:  START,
-		enable:  true,
+	START: {
 		names:   []string{"START"},
 		types:   []string{"timestamp"},
 		getFunc: createTime,
 	},
-	{
-		column:  USER,
-		enable:  true,
+	USER: {
 		names:   []string{"USER"},
 		types:   []string{"text"},
 		getFunc: getUser,
 	},
-	{
-		column:  CWD,
-		enable:  false,
+	CWD: {
 		names:   []string{"Cwd"},
 		types:   []string{"text"},
 		getFunc: cwd,
 	},
-	{
-		column:  EXE,
-		enable:  false,
+	EXE: {
 		names:   []string{"Exe"},
 		types:   []string{"text"},
 		getFunc: exe,
 	},
-	{
-		column:  TERMINAL,
-		enable:  false,
+	TERMINAL: {
 		names:   []string{"Terminal"},
 		types:   []string{"text"},
 		getFunc: terminal,
 	},
-	{
-		column:  IONICE,
-		enable:  false,
+	IONICE: {
 		names:   []string{"IONice"},
 		types:   []string{"int"},
 		getFunc: ioNice,
 	},
-	{
-		column:  NICE,
-		enable:  false,
+	NICE: {
 		names:   []string{"Nice"},
 		types:   []string{"int"},
 		getFunc: nice,
 	},
-	{
-		column:  NUMFDS,
-		enable:  false,
+	NUMFDS: {
 		names:   []string{"NumFDs"},
 		types:   []string{"int"},
 		getFunc: numFDs,
 	},
-	{
-		column:  NUMTHREADS,
-		enable:  false,
+	NUMTHREADS: {
 		names:   []string{"NumThreads"},
 		types:   []string{"int"},
 		getFunc: numThreads,
 	},
-	{
-		column:  PPID,
-		enable:  false,
+	PPID: {
 		names:   []string{"pPid"},
 		types:   []string{"int"},
 		getFunc: ppid,
 	},
-	{
-		column:  TGID,
-		enable:  false,
+	TGID: {
 		names:   []string{"Tgid"},
 		types:   []string{"int"},
 		getFunc: tgid,
 	},
-	{
-		column:  UIDS,
-		enable:  false,
+	UIDS: {
 		names:   []string{"Uids"},
 		types:   []string{"text"},
 		getFunc: uids,
 	},
-	{
-		column:  GIDS,
-		enable:  false,
+	GIDS: {
 		names:   []string{"Gids"},
 		types:   []string{"text"},
 		getFunc: gids,
 	},
-	{
-		column:  MEMORYINFOEX,
-		enable:  false,
+	MEMORYINFOEX: {
 		names:   []string{"RSS", "VMS", "Shared", "Text", "Lib", "Data", "Dirty"},
 		types:   []string{"int", "int", "int", "int", "int", "int", "int"},
 		getFunc: memoryInfoEx,
 	},
-	{
-		column:  MEMORYINFO,
-		enable:  true,
+	MEMORYINFO: {
 		names:   []string{"RSS", "VMS", "Data", "Stack", "locked", "Swap"},
 		types:   []string{"int", "int", "int", "int", "int", "int"},
 		getFunc: memoryInfo,
 	},
-	{
-		column:  COMMAND,
-		enable:  true,
+	IOCOUNTERS: {
+		names:   []string{"ReadCount", "WriteCount", "ReadBytes", "WriteBytes"},
+		types:   []string{"int", "int", "int", "int"},
+		getFunc: ioCounters,
+	},
+	FOREGROUND: {
+		names:   []string{"Foreground"},
+		types:   []string{"bool"},
+		getFunc: foreGround,
+	},
+	BACKGROUND: {
+		names:   []string{"Background"},
+		types:   []string{"bool"},
+		getFunc: backGround,
+	},
+	ISRUNNING: {
+		names:   []string{"IsRunning"},
+		types:   []string{"bool"},
+		getFunc: isRunning,
+	},
+
+	COMMAND: {
 		names:   []string{"COMMAND"},
 		types:   []string{"text"},
 		getFunc: cmdLine,
@@ -269,6 +251,22 @@ func uids(p *process.Process) []interface{} {
 func gids(p *process.Process) []interface{} {
 	return sliceWrap(p.Gids())
 }
+
+func boolWrap(v bool, err error) []interface{} {
+	if err != nil {
+		return []interface{}{""}
+	}
+	return []interface{}{strconv.FormatBool(v)}
+}
+func foreGround(p *process.Process) []interface{} {
+	return boolWrap(p.Foreground())
+}
+func backGround(p *process.Process) []interface{} {
+	return boolWrap(p.Background())
+}
+func isRunning(p *process.Process) []interface{} {
+	return boolWrap(p.IsRunning())
+}
 func createTime(p *process.Process) []interface{} {
 	c, err := p.CreateTime()
 	if err != nil {
@@ -306,3 +304,31 @@ func memoryInfo(p *process.Process) []interface{} {
 		mx.Swap,
 	}
 }
+
+func ioCounters(p *process.Process) []interface{} {
+	io, err := p.IOCounters()
+	if err != nil {
+		return []interface{}{0, 0, 0, 0}
+	}
+	return []interface{}{
+		io.ReadCount,
+		io.WriteCount,
+		io.ReadBytes,
+		io.WriteBytes,
+	}
+}
+
+/*
+func pageFaults(p *process.Process) []interface{} {
+	pf, err := p.PageFaults
+	if err != nil {
+		return []interface{}{0, 0, 0, 0}
+	}
+	return []interface{}{
+		pf.MinorFaults,
+		pf.MajorFaults,
+		pf.ChildMinorFaults,
+		pf.ChildMajorFaults,
+	}
+}
+*/

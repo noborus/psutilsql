@@ -19,7 +19,10 @@ to quickly create a Cobra application.`,
 		defaultQuery := "SELECT * FROM cpu ORDER BY CPU"
 
 		var err error
-		var info, total bool
+		var per, info, total bool
+		if per, err = cmd.PersistentFlags().GetBool("percent"); err != nil {
+			return err
+		}
 		if info, err = cmd.PersistentFlags().GetBool("info"); err != nil {
 			return err
 		}
@@ -28,7 +31,10 @@ to quickly create a Cobra application.`,
 		}
 
 		var v interface{}
-		if info {
+		if per {
+			defaultQuery = "SELECT * FROM cpu"
+			v, err = cpu.Percent(0, !total)
+		} else if info {
 			v, err = cpu.Info()
 		} else {
 			v, err = cpu.Times(!total)
@@ -46,6 +52,7 @@ to quickly create a Cobra application.`,
 
 func init() {
 	rootCmd.AddCommand(cpuCmd)
-	cpuCmd.PersistentFlags().BoolP("info", "i", false, "cpu info")
-	cpuCmd.PersistentFlags().BoolP("total", "t", false, "total cpu info")
+	cpuCmd.PersistentFlags().BoolP("info", "i", false, "CPU info")
+	cpuCmd.PersistentFlags().BoolP("percent", "p", false, " per CPU")
+	cpuCmd.PersistentFlags().BoolP("total", "t", false, "total CPU info")
 }

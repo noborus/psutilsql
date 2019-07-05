@@ -8,7 +8,7 @@ import (
 )
 
 func processQuery(ex bool, query string) error {
-	importer, err := psutilsql.NewProcessImporter(ex)
+	importer, err := psutilsql.NewProcessImporter(ex, query)
 	if err != nil {
 		return err
 	}

@@ -17,18 +17,23 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		v, err := net.Pids()
+		defaultQuery := "SELECT * FROM net"
+		var err error
+		var v interface{}
+
+		v, err = net.Connections("all")
 		if err != nil {
 			return err
 		}
-		query := "SELECT * FROM load"
-		if Query != "" {
-			query = Query
+		query := Query
+		if query == "" {
+			query = defaultQuery
 		}
-		return sliceQuery(v, "load", query)
+		return sliceQuery(v, "net", query)
 	},
 }
 
 func init() {
+	netCmd.PersistentFlags().BoolP("conntrack", "t", false, "connection tracking")
 	rootCmd.AddCommand(netCmd)
 }

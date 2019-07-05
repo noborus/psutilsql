@@ -24,7 +24,6 @@ to quickly create a Cobra application.`,
 		if Query != "" {
 			query = Query
 		}
-
 		return sliceQuery(v, "docker", query)
 	},
 }

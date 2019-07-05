@@ -17,7 +17,17 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defaultQuery := "SELECT * FROM load"
-		v, err := load.Avg()
+		var err error
+		var v interface{}
+		var misc bool
+		if misc, err = cmd.PersistentFlags().GetBool("misc"); err != nil {
+			return err
+		}
+		if misc {
+			v, err = load.Misc()
+		} else {
+			v, err = load.Avg()
+		}
 		if err != nil {
 			return err
 		}
@@ -30,5 +40,6 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
+	loadCmd.PersistentFlags().BoolP("misc", "m", false, " miscellaneous host-wide statistics")
 	rootCmd.AddCommand(loadCmd)
 }

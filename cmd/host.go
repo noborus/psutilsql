@@ -17,10 +17,28 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defaultQuery := "SELECT * FROM host"
-		v, err := host.Users()
+
+		var err error
+		var v interface{}
+		var tempera,users bool
+		if tempera, err = cmd.PersistentFlags().GetBool("temperatures"); err != nil {
+			return err
+		}
+		if users, err = cmd.PersistentFlags().GetBool("users"); err != nil {
+			return err
+		}
+		
+		if tempera {
+			v, err = host.SensorsTemperatures()
+		} else if users{
+			v, err = host.Users()
+		} else{
+			v, err = host.Info()
+		}
 		if err != nil {
 			return err
 		}
+
 		query := Query
 		if query == "" {
 			query = defaultQuery
@@ -30,5 +48,8 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
+	hostCmd.PersistentFlags().BoolP("temperatures", "t", false, "SensorsTemperatures")
+	hostCmd.PersistentFlags().BoolP("users", "u", false, "users")
+
 	rootCmd.AddCommand(hostCmd)
 }
