@@ -34,8 +34,8 @@ github.com/mitchellh/mapstructure v1.1.2 h1:fmNYVwqnSfB9mZU6OS2O6GsXM+wcskZDuKQz
 github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
 github.com/noborus/tbln v0.0.1 h1:Urs+g3IvDAGunlV1OJ1lEN8MlJihwd9XJ8ZtPBcuAAM=
 github.com/noborus/tbln v0.0.1/go.mod h1:CZY8QdZ5ad9OTOSz2KafIV5ZgjLMqOMNCmX9OimNc+Q=
-github.com/noborus/trdsql v0.6.2-0.20190705170222-f600beb80657 h1:y9ioTH8DT04IqDtdu52AaNQi10DWh46qtW9l0jOk16c=
-github.com/noborus/trdsql v0.6.2-0.20190705170222-f600beb80657/go.mod h1:srM6XtYANNfeSHqjf40bLAQeaHWKkQCbjYjyYOnHrzQ=
+github.com/noborus/trdsql v0.6.2-0.20190706043130-eaf8d6648328 h1:zZ60og0q18BmiqczdpgPvKIhcthbOWf5eJm8hcYAF0s=
+github.com/noborus/trdsql v0.6.2-0.20190706043130-eaf8d6648328/go.mod h1:srM6XtYANNfeSHqjf40bLAQeaHWKkQCbjYjyYOnHrzQ=
 github.com/olekukonko/tablewriter v0.0.1 h1:b3iUnf1v+ppJiOfNX4yxxqfWKMQPZR5yoh8urCTFX88=
 github.com/olekukonko/tablewriter v0.0.1/go.mod h1:vsDQFd/mU46D+Z4whnwzcISnGGzXWMclvtLoiIKAKIo=
 github.com/pelletier/go-toml v1.2.0 h1:T5zMGML61Wp+FlcbWjRDT7yAxhJNAiPPLOFECq181zc=

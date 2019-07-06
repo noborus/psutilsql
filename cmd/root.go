@@ -65,12 +65,3 @@ func outFormat() trdsql.Format {
 	}
 	return trdsql.AT
 }
-
-func sliceQuery(slice interface{}, tableName string, query string) error {
-	// trdsql.EnableDebug()
-	importer := trdsql.NewSliceImporter(tableName, slice)
-	writer := trdsql.NewWriter(trdsql.OutFormat(outFormat()))
-	trd := trdsql.NewTRDSQL(importer, trdsql.NewExporter(writer))
-	err := trd.Exec(query)
-	return err
-}

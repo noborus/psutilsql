@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"github.com/noborus/psutilsql"
+
 	"github.com/shirou/gopsutil/disk"
 	"github.com/spf13/cobra"
 )
@@ -8,13 +10,10 @@ import (
 // diskCmd represents the disk command
 var diskCmd = &cobra.Command{
 	Use:   "disk",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "DISK information",
+	Long: `DISK information
+	
+	`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defaultQuery := "SELECT * FROM disk"
 		var err error
@@ -23,7 +22,7 @@ to quickly create a Cobra application.`,
 			return err
 		}
 		var usage string
- 		if usage, err = cmd.PersistentFlags().GetString("usage"); err != nil {
+		if usage, err = cmd.PersistentFlags().GetString("usage"); err != nil {
 			return err
 		}
 		var v interface{}
@@ -39,7 +38,7 @@ to quickly create a Cobra application.`,
 		if Query == "" {
 			query = defaultQuery
 		}
-		return sliceQuery(v, "disk", query)
+		return psutilsql.SliceQuery(v, "disk", query, outFormat())
 	},
 }
 

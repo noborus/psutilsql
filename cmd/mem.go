@@ -1,36 +1,27 @@
 package cmd
 
 import (
-	"github.com/shirou/gopsutil/mem"
-
+	"github.com/noborus/psutilsql"
 	"github.com/spf13/cobra"
 )
 
 // memCmd represents the mem command
 var memCmd = &cobra.Command{
 	Use:   "mem",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "memory information",
+	Long: `memory information.
+`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		defaultQuery := "SELECT * FROM mem"
-
-		v, err := mem.VirtualMemory()
-		if err != nil {
+		var err error
+		var swap bool
+		if swap, err = cmd.PersistentFlags().GetBool("swap"); err != nil {
 			return err
 		}
-		query := Query
-		if query == "" {
-			query = defaultQuery
-		}
-		return sliceQuery(v, "mem", query)
+		return psutilsql.MEMQuery(!swap, Query, outFormat())
 	},
 }
 
 func init() {
+	memCmd.PersistentFlags().BoolP("swap", "s", false, "swap memory")
 	rootCmd.AddCommand(memCmd)
 }

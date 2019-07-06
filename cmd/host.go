@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/noborus/psutilsql"
 	"github.com/shirou/gopsutil/host"
 	"github.com/spf13/cobra"
 )
@@ -8,31 +9,27 @@ import (
 // hostCmd represents the host command
 var hostCmd = &cobra.Command{
 	Use:   "host",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "host information",
+	Long: `host information.
+`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defaultQuery := "SELECT * FROM host"
 
 		var err error
 		var v interface{}
-		var tempera,users bool
+		var tempera, users bool
 		if tempera, err = cmd.PersistentFlags().GetBool("temperatures"); err != nil {
 			return err
 		}
 		if users, err = cmd.PersistentFlags().GetBool("users"); err != nil {
 			return err
 		}
-		
+
 		if tempera {
 			v, err = host.SensorsTemperatures()
-		} else if users{
+		} else if users {
 			v, err = host.Users()
-		} else{
+		} else {
 			v, err = host.Info()
 		}
 		if err != nil {
@@ -43,7 +40,7 @@ to quickly create a Cobra application.`,
 		if query == "" {
 			query = defaultQuery
 		}
-		return sliceQuery(v, "host", query)
+		return psutilsql.SliceQuery(v, "host", query, outFormat())
 	},
 }
 
