@@ -43,5 +43,4 @@ func NetQuery(query string, out trdsql.Format) error {
 		query = defaultQuery
 	}
 	return SliceQuery(data, "net", query, out)
-
 }

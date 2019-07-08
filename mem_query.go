@@ -21,5 +21,4 @@ func MEMQuery(memory bool, query string, out trdsql.Format) error {
 		query = defaultQuery
 	}
 	return SliceQuery(v, "mem", query, out)
-
 }

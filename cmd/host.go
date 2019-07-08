@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"github.com/noborus/psutilsql"
-	"github.com/shirou/gopsutil/host"
 	"github.com/spf13/cobra"
 )
 
@@ -13,10 +12,7 @@ var hostCmd = &cobra.Command{
 	Long: `host information.
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		defaultQuery := "SELECT * FROM host"
-
 		var err error
-		var v interface{}
 		var tempera, users bool
 		if tempera, err = cmd.PersistentFlags().GetBool("temperatures"); err != nil {
 			return err
@@ -25,22 +21,7 @@ var hostCmd = &cobra.Command{
 			return err
 		}
 
-		if tempera {
-			v, err = host.SensorsTemperatures()
-		} else if users {
-			v, err = host.Users()
-		} else {
-			v, err = host.Info()
-		}
-		if err != nil {
-			return err
-		}
-
-		query := Query
-		if query == "" {
-			query = defaultQuery
-		}
-		return psutilsql.SliceQuery(v, "host", query, outFormat())
+		return psutilsql.HostQuery(tempera, users, Query, outFormat())
 	},
 }
 

@@ -24,17 +24,22 @@ Option total gets the result of the total on one row.
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var err error
 		var per, info, total bool
+		if total, err = cmd.PersistentFlags().GetBool("total"); err != nil {
+			return err
+		}
 		if per, err = cmd.PersistentFlags().GetBool("percent"); err != nil {
 			return err
+		}
+		if per {
+			return psutilsql.CPUPercentQuery(total, Query, outFormat())
 		}
 		if info, err = cmd.PersistentFlags().GetBool("info"); err != nil {
 			return err
 		}
-		if total, err = cmd.PersistentFlags().GetBool("total"); err != nil {
-			return err
+		if info {
+			return psutilsql.CPUInfoQuery(Query, outFormat())
 		}
-		query := Query
-		return psutilsql.CPUQuery(per, info, total, query, outFormat())
+		return psutilsql.CPUTimeQuery(total, Query, outFormat())
 	},
 }
 

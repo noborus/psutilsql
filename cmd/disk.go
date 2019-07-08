@@ -3,7 +3,6 @@ package cmd
 import (
 	"github.com/noborus/psutilsql"
 
-	"github.com/shirou/gopsutil/disk"
 	"github.com/spf13/cobra"
 )
 
@@ -12,10 +11,8 @@ var diskCmd = &cobra.Command{
 	Use:   "disk",
 	Short: "DISK information",
 	Long: `DISK information
-	
-	`,
+`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		defaultQuery := "SELECT * FROM disk"
 		var err error
 		var all bool
 		if all, err = cmd.PersistentFlags().GetBool("all"); err != nil {
@@ -25,20 +22,10 @@ var diskCmd = &cobra.Command{
 		if usage, err = cmd.PersistentFlags().GetString("usage"); err != nil {
 			return err
 		}
-		var v interface{}
 		if usage != "" {
-			v, err = disk.Usage(usage)
-		} else {
-			v, err = disk.Partitions(all)
+			return psutilsql.DiskUsage(usage, Query, outFormat())
 		}
-		if err != nil {
-			return err
-		}
-		query := Query
-		if Query == "" {
-			query = defaultQuery
-		}
-		return psutilsql.SliceQuery(v, "disk", query, outFormat())
+		return psutilsql.DiskPartitionQuery(all, Query, outFormat())
 	},
 }
 
