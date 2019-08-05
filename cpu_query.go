@@ -5,6 +5,14 @@ import (
 	"github.com/shirou/gopsutil/cpu"
 )
 
+func CPUTimeReader(total bool) (*trdsql.SliceReader, error) {
+	v, err := cpu.Times(!total)
+	if err != nil {
+		return nil, err
+	}
+	return trdsql.NewSliceReader("CPUTime", v), nil
+}
+
 func CPUTimeQuery(total bool, query string, out trdsql.Format) error {
 	defaultQuery := "SELECT * FROM CPUTime ORDER BY cpu"
 	if query == "" {

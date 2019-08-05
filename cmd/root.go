@@ -12,16 +12,11 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "psutilsql",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "SQL for running processes and system utilization",
+	Long: `SQL for running processes and system utilization.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+SQL can be executed on the information acquired using gopsutil library.
+Default SQL is provided, so you can omit SQL if you select a command.`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -34,6 +29,8 @@ func Execute() {
 }
 
 var OutFormat string
+var Header bool
+var Delimiter string
 var Query string
 
 func init() {
@@ -41,6 +38,8 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.PersistentFlags().StringVarP(&OutFormat, "OutFormat", "o", "", "output format")
+	rootCmd.PersistentFlags().BoolVarP(&Header, "Header", "h", false, "output header (CSV only)")
+	rootCmd.PersistentFlags().StringVarP(&Delimiter, "Delimiter", "d", "", "output header (CSV only)")
 	rootCmd.PersistentFlags().StringVarP(&Query, "Query", "q", "", "query")
 }
 
