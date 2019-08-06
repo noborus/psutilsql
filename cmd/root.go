@@ -38,7 +38,7 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.PersistentFlags().StringVarP(&OutFormat, "OutFormat", "o", "", "output format")
-	rootCmd.PersistentFlags().BoolVarP(&Header, "Header", "h", false, "output header (CSV only)")
+	rootCmd.PersistentFlags().BoolVarP(&Header, "Header", "", false, "output header (CSV only)")
 	rootCmd.PersistentFlags().StringVarP(&Delimiter, "Delimiter", "d", "", "output header (CSV only)")
 	rootCmd.PersistentFlags().StringVarP(&Query, "Query", "q", "", "query")
 }

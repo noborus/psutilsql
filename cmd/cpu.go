@@ -71,7 +71,7 @@ Option total gets the result of the total on one row.
 		if query == "" {
 			query = defaultQuery
 		}
-		importer, err := psutilsql.NewMultiImporter(*r)
+		importer, err := psutilsql.NewMultiImporter(r)
 		if err != nil {
 			return err
 		}
@@ -87,4 +87,5 @@ func init() {
 	cpuCmd.PersistentFlags().BoolP("info", "i", false, "CPU info")
 	cpuCmd.PersistentFlags().BoolP("percent", "p", false, " per CPU")
 	cpuCmd.PersistentFlags().BoolP("total", "t", false, "total CPU info")
+	cpuCmd.PersistentFlags().BoolP("time", "", true, "CPU Time")
 }

@@ -5,11 +5,19 @@ import (
 )
 
 type MultiImporter struct {
-	readers []trdsql.SliceReader
+	readers []Reader
 }
 
-func NewMultiImporter(readers ...trdsql.SliceReader) (*MultiImporter, error) {
-	r := make([]trdsql.SliceReader, len(readers))
+type Reader interface {
+	TableName() (string, error)
+	Names() ([]string, error)
+	Types() ([]string, error)
+	PreReadRow() [][]interface{}
+	ReadRow([]interface{}) ([]interface{}, error)
+}
+
+func NewMultiImporter(readers ...Reader) (*MultiImporter, error) {
+	r := make([]Reader, len(readers))
 	copy(r, readers)
 	return &MultiImporter{
 		readers: readers,
@@ -34,7 +42,7 @@ func (i *MultiImporter) Import(db *trdsql.DB, query string) (string, error) {
 		if err != nil {
 			return query, err
 		}
-		err = db.Import(tableName, names, &r)
+		err = db.Import(tableName, names, r)
 		if err != nil {
 			return query, err
 		}
