@@ -3,8 +3,6 @@ package cmd
 import (
 	"github.com/noborus/psutilsql"
 
-	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/cpu"
 	"github.com/spf13/cobra"
 )
 
@@ -41,44 +39,16 @@ Option total gets the result of the total on one row.
 			return err
 		}
 
-		defaultQuery := "SELECT * FROM CPUTime ORDER BY cpu"
-		var r *trdsql.SliceReader
 		if per {
-			defaultQuery = "SELECT * FROM CPUPercent"
-			c, err := cpu.Percent(0, !total)
-			if err != nil {
-				return err
-			}
-			r = trdsql.NewSliceReader("CPUPercent", c)
+			return psutilsql.CPUPercentQuery(total, Query, outFormat())
 		}
 		if info {
-			defaultQuery = "SELECT * FROM CPUInfo ORDER BY cpu"
-			c, err := cpu.Info()
-			if err != nil {
-				return err
-			}
-			r = trdsql.NewSliceReader("CPUInfo", c)
+			return psutilsql.CPUInfoQuery(Query, outFormat())
 		}
 		if time {
-			defaultQuery = "SELECT * FROM CPUTime ORDER BY cpu"
-			c, err := cpu.Times(!total)
-			if err != nil {
-				return err
-			}
-			r = trdsql.NewSliceReader("CPUTime", c)
+			return psutilsql.CPUTimeQuery(total, Query, outFormat())
 		}
-		query := Query
-		if query == "" {
-			query = defaultQuery
-		}
-		importer, err := psutilsql.NewMultiImporter(r)
-		if err != nil {
-			return err
-		}
-		writer := trdsql.NewWriter(trdsql.OutFormat(outFormat()))
-		trd := trdsql.NewTRDSQL(importer, trdsql.NewExporter(writer))
-		err = trd.Exec(query)
-		return err
+		return psutilsql.CPUTimeQuery(total, Query, outFormat())
 	},
 }
 
