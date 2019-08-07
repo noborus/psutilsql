@@ -5,8 +5,7 @@ import (
 	"github.com/shirou/gopsutil/mem"
 )
 
-func MEMQuery(memory bool, query string, out trdsql.Format) error {
-	defaultQuery := "SELECT * FROM mem"
+func MEMReader(memory bool) (*trdsql.SliceReader, error) {
 	var v interface{}
 	var err error
 	if memory {
@@ -15,10 +14,21 @@ func MEMQuery(memory bool, query string, out trdsql.Format) error {
 		v, err = mem.SwapMemory()
 	}
 	if err != nil {
+		return nil, err
+	}
+	return trdsql.NewSliceReader("mem", v), nil
+
+}
+
+func MEMQuery(memory bool, query string, out trdsql.Format) error {
+	reader, err := MEMReader(memory)
+	if err != nil {
 		return err
 	}
+
+	defaultQuery := "SELECT * FROM mem"
 	if query == "" {
 		query = defaultQuery
 	}
-	return SliceQuery(v, "mem", query, out)
+	return readerQuery(reader, query, out)
 }

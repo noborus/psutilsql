@@ -5,12 +5,10 @@ import (
 	"github.com/shirou/gopsutil/net"
 )
 
-func NetQuery(query string, out trdsql.Format) error {
-	defaultQuery := "SELECT * FROM net"
-
+func NetReader() (*trdsql.SliceReader, error) {
 	conns, err := net.Connections("all")
 	if err != nil {
-		return err
+		return nil, err
 	}
 	type wrapConnection struct {
 		Fd        uint32
@@ -39,8 +37,17 @@ func NetQuery(query string, out trdsql.Format) error {
 		c.Pid = conn.Pid
 		data[i] = c
 	}
+	return trdsql.NewSliceReader("net", data), nil
+}
+
+func NetQuery(query string, out trdsql.Format) error {
+	reader, err := NetReader()
+	if err != nil {
+		return err
+	}
+	defaultQuery := "SELECT * FROM net"
 	if query == "" {
 		query = defaultQuery
 	}
-	return SliceQuery(data, "net", query, out)
+	return readerQuery(reader, query, out)
 }

@@ -5,12 +5,7 @@ import (
 	"github.com/shirou/gopsutil/host"
 )
 
-func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error {
-	defaultQuery := "SELECT * FROM host"
-	if query == "" {
-		query = defaultQuery
-	}
-
+func HostReader(tempera bool, users bool) (*trdsql.SliceReader, error) {
 	var err error
 	var v interface{}
 	if tempera {
@@ -21,7 +16,19 @@ func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error 
 		v, err = host.Info()
 	}
 	if err != nil {
+		return nil, err
+	}
+	return trdsql.NewSliceReader("host", v), nil
+}
+
+func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error {
+	reader, err := HostReader(tempera, users)
+	if err != nil {
 		return err
 	}
-	return SliceQuery(v, "host", query, out)
+	defaultQuery := "SELECT * FROM host"
+	if query == "" {
+		query = defaultQuery
+	}
+	return readerQuery(reader, query, out)
 }
