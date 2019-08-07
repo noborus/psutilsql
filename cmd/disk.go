@@ -23,7 +23,7 @@ var diskCmd = &cobra.Command{
 			return err
 		}
 		if usage != "" {
-			return psutilsql.DiskUsage(usage, Query, outFormat())
+			return psutilsql.DiskUsageQuery(usage, Query, outFormat())
 		}
 		return psutilsql.DiskPartitionQuery(all, Query, outFormat())
 	},

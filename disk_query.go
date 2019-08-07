@@ -5,26 +5,43 @@ import (
 	"github.com/shirou/gopsutil/disk"
 )
 
+func DiskPartitionReader(all bool) (*trdsql.SliceReader, error) {
+	v, err := disk.Partitions(all)
+	if err != nil {
+		return nil, err
+	}
+	return trdsql.NewSliceReader("DiskPartition", v), nil
+}
+
+func DiskUsageReader(usage string) (*trdsql.SliceReader, error) {
+	v, err := disk.Usage(usage)
+	if err != nil {
+		return nil, err
+	}
+	return trdsql.NewSliceReader("DiskUsage", v), nil
+}
+
 func DiskPartitionQuery(all bool, query string, out trdsql.Format) error {
+	reader, err := DiskPartitionReader(all)
+	if err != nil {
+		return err
+	}
 	defaultQuery := "SELECT * FROM DiskPartition"
 	if query == "" {
 		query = defaultQuery
 	}
-	v, err := disk.Partitions(all)
+	return readerQuery(reader, query, out)
+}
+
+func DiskUsageQuery(usage string, query string, out trdsql.Format) error {
+	reader, err := DiskUsageReader(usage)
 	if err != nil {
 		return err
 	}
-	return SliceQuery(v, "DiskPartition", query, out)
-}
 
-func DiskUsage(usage string, query string, out trdsql.Format) error {
 	defaultQuery := "SELECT * FROM DiskUsage"
 	if query == "" {
 		query = defaultQuery
 	}
-	v, err := disk.Usage(usage)
-	if err != nil {
-		return err
-	}
-	return SliceQuery(v, "DiskUsage", query, out)
+	return readerQuery(reader, query, out)
 }

@@ -12,19 +12,12 @@ func ProcessQuery(ex bool, query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	importer, err := NewMultiImporter(reader)
-	if err != nil {
-		return err
-	}
-
 	defaultQuery := "SELECT * FROM process ORDER BY pid"
 	if query == "" {
 		query = defaultQuery
 	}
-	writer := trdsql.NewWriter(trdsql.OutFormat(out))
-	trd := trdsql.NewTRDSQL(importer, trdsql.NewExporter(writer))
-	err = trd.Exec(query)
-	return err
+
+	return readerQuery(reader, query, out)
 }
 
 type ProcessReader struct {
