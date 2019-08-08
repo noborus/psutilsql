@@ -10,7 +10,7 @@ func VirtualMemoryReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("VirtualMemory", v), nil
+	return trdsql.NewSliceReader(psVirtualMemory, v), nil
 }
 
 func SwapMemoryReader() (*trdsql.SliceReader, error) {
@@ -18,12 +18,12 @@ func SwapMemoryReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("SwapMemory", v), nil
+	return trdsql.NewSliceReader(psSwapMemory, v), nil
 }
 
 func MEMQuery(memory bool, query string, out trdsql.Format) error {
 	if memory {
-		defaultQuery := "SELECT * FROM VirtualMemory"
+		defaultQuery := "SELECT * FROM " + psVirtualMemory
 		if query == "" {
 			query = defaultQuery
 		}
@@ -34,7 +34,7 @@ func MEMQuery(memory bool, query string, out trdsql.Format) error {
 		return readerQuery(reader, query, out)
 	}
 
-	defaultQuery := "SELECT * FROM SwapMemory"
+	defaultQuery := "SELECT * FROM " + psSwapMemory
 	if query == "" {
 		query = defaultQuery
 	}

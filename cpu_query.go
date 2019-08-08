@@ -10,7 +10,7 @@ func CPUTimeReader(total bool) (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("CPUTime", v), nil
+	return trdsql.NewSliceReader(psCPUTime, v), nil
 }
 
 func CPUInfoReader() (*trdsql.SliceReader, error) {
@@ -18,7 +18,7 @@ func CPUInfoReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("CPUInfo", v), nil
+	return trdsql.NewSliceReader(psCPUInfo, v), nil
 }
 
 func CPUPercentReader(total bool) (*trdsql.SliceReader, error) {
@@ -26,7 +26,7 @@ func CPUPercentReader(total bool) (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("CPUPercent", v), nil
+	return trdsql.NewSliceReader(psCPUPercent, v), nil
 }
 
 func CPUTimeQuery(total bool, query string, out trdsql.Format) error {
@@ -34,7 +34,7 @@ func CPUTimeQuery(total bool, query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	defaultQuery := "SELECT * FROM CPUTime ORDER BY cpu"
+	defaultQuery := "SELECT * FROM " + psCPUTime + " ORDER BY cpu"
 	if query == "" {
 		query = defaultQuery
 	}
@@ -46,7 +46,7 @@ func CPUInfoQuery(query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	defaultQuery := "SELECT * FROM CPUInfo ORDER BY cpu"
+	defaultQuery := "SELECT * FROM " + psCPUInfo + " ORDER BY cpu"
 	if query == "" {
 		query = defaultQuery
 	}
@@ -58,7 +58,7 @@ func CPUPercentQuery(total bool, query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	defaultQuery := "SELECT * FROM CPUPercent"
+	defaultQuery := "SELECT * FROM " + psCPUPercent
 	if query == "" {
 		query = defaultQuery
 	}

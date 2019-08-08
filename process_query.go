@@ -17,10 +17,10 @@ type ProcessReader struct {
 
 func NewProcessReader(ex bool) (*ProcessReader, error) {
 	pr := &ProcessReader{}
-	pr.tableName = "process"
+	pr.tableName = psProcess
 	columns := []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFO, COMMAND}
 	if ex {
-		pr.tableName = "processex"
+		pr.tableName = psProcessEx
 		columns = []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFOEX, COMMAND}
 	}
 	for _, cn := range columns {
@@ -72,9 +72,9 @@ func ProcessQuery(ex bool, query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	defaultQuery := "SELECT * FROM process ORDER BY pid"
+	defaultQuery := "SELECT * FROM " + psProcess + " ORDER BY pid"
 	if ex {
-		defaultQuery = "SELECT * FROM processex ORDER BY pid"
+		defaultQuery = "SELECT * FROM " + psProcessEx + " ORDER BY pid"
 	}
 	if query == "" {
 		query = defaultQuery

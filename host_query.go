@@ -10,7 +10,7 @@ func HostInfoReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("HostInfo", v), nil
+	return trdsql.NewSliceReader(psHostInfo, v), nil
 }
 
 func HostUserReader() (*trdsql.SliceReader, error) {
@@ -18,7 +18,7 @@ func HostUserReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("HostUser", v), nil
+	return trdsql.NewSliceReader(psHostUser, v), nil
 }
 
 func HostTemperatureReader() (*trdsql.SliceReader, error) {
@@ -26,7 +26,7 @@ func HostTemperatureReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("HostTemperature", v), nil
+	return trdsql.NewSliceReader(psHostTemperature, v), nil
 }
 
 func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error {
@@ -35,7 +35,7 @@ func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error 
 		if err != nil {
 			return err
 		}
-		defaultQuery := "SELECT * FROM HostTemperature"
+		defaultQuery := "SELECT * FROM " + psHostTemperature
 		if query == "" {
 			query = defaultQuery
 		}
@@ -45,7 +45,7 @@ func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error 
 		if err != nil {
 			return err
 		}
-		defaultQuery := "SELECT * FROM HostUser"
+		defaultQuery := "SELECT * FROM " + psHostUser
 		if query == "" {
 			query = defaultQuery
 		}
@@ -55,7 +55,7 @@ func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error 
 	if err != nil {
 		return err
 	}
-	defaultQuery := "SELECT * FROM HostInfo"
+	defaultQuery := "SELECT * FROM " + psHostInfo
 	if query == "" {
 		query = defaultQuery
 	}

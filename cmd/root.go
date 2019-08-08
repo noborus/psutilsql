@@ -27,6 +27,12 @@ Default SQL is provided, so you can omit SQL if you select a command.`,
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
+	cmd, _, err := rootCmd.Find(os.Args[1:])
+	if err != nil || cmd == nil {
+		// Not found
+		args := append([]string{"-q"}, os.Args[1:]...)
+		rootCmd.SetArgs(args)
+	}
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)

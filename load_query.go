@@ -10,7 +10,7 @@ func LoadAvgReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("LoadAvg", v), nil
+	return trdsql.NewSliceReader(psLoadAvg, v), nil
 }
 
 func LoadMiscReader() (*trdsql.SliceReader, error) {
@@ -18,12 +18,12 @@ func LoadMiscReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("LoadMisc", v), nil
+	return trdsql.NewSliceReader(psLoadMisc, v), nil
 }
 
 func LoadQuery(misc bool, query string, out trdsql.Format) error {
 	if misc {
-		defaultQuery := "SELECT * FROM LoadMisc"
+		defaultQuery := "SELECT * FROM " + psLoadMisc
 		if query == "" {
 			query = defaultQuery
 		}
@@ -33,7 +33,7 @@ func LoadQuery(misc bool, query string, out trdsql.Format) error {
 		}
 		return readerQuery(reader, query, out)
 	}
-	defaultQuery := "SELECT * FROM LoadAvg"
+	defaultQuery := "SELECT * FROM " + psLoadAvg
 	if query == "" {
 		query = defaultQuery
 	}

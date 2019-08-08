@@ -37,7 +37,7 @@ func NetReader() (*trdsql.SliceReader, error) {
 		c.Pid = conn.Pid
 		data[i] = c
 	}
-	return trdsql.NewSliceReader("net", data), nil
+	return trdsql.NewSliceReader(psNet, data), nil
 }
 
 func NetQuery(query string, out trdsql.Format) error {
@@ -45,7 +45,7 @@ func NetQuery(query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	defaultQuery := "SELECT * FROM net"
+	defaultQuery := "SELECT * FROM " + psNet
 	if query == "" {
 		query = defaultQuery
 	}

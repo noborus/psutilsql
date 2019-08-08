@@ -10,7 +10,7 @@ func DockerReader() (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("docker", v), nil
+	return trdsql.NewSliceReader(psDocker, v), nil
 }
 
 func DockerQuery(query string, out trdsql.Format) error {
@@ -18,7 +18,7 @@ func DockerQuery(query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	defaultQuery := "SELECT * FROM docker"
+	defaultQuery := "SELECT * FROM " + psDocker
 	if query == "" {
 		query = defaultQuery
 	}

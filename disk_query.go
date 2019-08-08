@@ -10,7 +10,7 @@ func DiskPartitionReader(all bool) (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("DiskPartition", v), nil
+	return trdsql.NewSliceReader(psDiskPartition, v), nil
 }
 
 func DiskUsageReader(usage string) (*trdsql.SliceReader, error) {
@@ -18,7 +18,7 @@ func DiskUsageReader(usage string) (*trdsql.SliceReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trdsql.NewSliceReader("DiskUsage", v), nil
+	return trdsql.NewSliceReader(psDiskUsage, v), nil
 }
 
 func DiskPartitionQuery(all bool, query string, out trdsql.Format) error {
@@ -26,7 +26,7 @@ func DiskPartitionQuery(all bool, query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	defaultQuery := "SELECT * FROM DiskPartition"
+	defaultQuery := "SELECT * FROM " + psDiskPartition
 	if query == "" {
 		query = defaultQuery
 	}
@@ -39,7 +39,7 @@ func DiskUsageQuery(usage string, query string, out trdsql.Format) error {
 		return err
 	}
 
-	defaultQuery := "SELECT * FROM DiskUsage"
+	defaultQuery := "SELECT * FROM " + psDiskUsage
 	if query == "" {
 		query = defaultQuery
 	}
