@@ -29,7 +29,7 @@ func HostTemperatureReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psHostTemperature, v), nil
 }
 
-func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error {
+func HostQuery(tempera bool, users bool, query string, w trdsql.Writer) error {
 	if tempera {
 		reader, err := HostTemperatureReader()
 		if err != nil {
@@ -39,7 +39,7 @@ func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error 
 		if query == "" {
 			query = defaultQuery
 		}
-		return readerQuery(reader, query, out)
+		return readerExec(reader, query, w)
 	} else if users {
 		reader, err := HostUserReader()
 		if err != nil {
@@ -49,7 +49,7 @@ func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error 
 		if query == "" {
 			query = defaultQuery
 		}
-		return readerQuery(reader, query, out)
+		return readerExec(reader, query, w)
 	}
 	reader, err := HostInfoReader()
 	if err != nil {
@@ -59,5 +59,5 @@ func HostQuery(tempera bool, users bool, query string, out trdsql.Format) error 
 	if query == "" {
 		query = defaultQuery
 	}
-	return readerQuery(reader, query, out)
+	return readerExec(reader, query, w)
 }

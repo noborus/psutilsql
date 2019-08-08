@@ -29,7 +29,7 @@ func TableReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader("pstable", tables), nil
 }
 
-func PSTableQuery(query string, out trdsql.Format) error {
+func PSTableQuery(query string, w trdsql.Writer) error {
 	reader, err := TableReader()
 	if err != nil {
 		return err
@@ -38,5 +38,5 @@ func PSTableQuery(query string, out trdsql.Format) error {
 	if query == "" {
 		query = defaultQuery
 	}
-	return readerQuery(reader, query, out)
+	return readerExec(reader, query, w)
 }

@@ -20,7 +20,7 @@ var rootCmd = &cobra.Command{
 SQL can be executed on the information acquired using gopsutil library.
 Default SQL is provided, so you can omit SQL if you select a command.`,
 	RunE: func(c *cobra.Command, args []string) error {
-		return psutilsql.QueryImport(Query, outFormat())
+		return psutilsql.QueryExec(Query, outFormat())
 	},
 }
 
@@ -50,28 +50,36 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.PersistentFlags().StringVarP(&OutFormat, "OutFormat", "o", "", "output format")
 	rootCmd.PersistentFlags().BoolVarP(&Header, "Header", "O", false, "output header (CSV only)")
-	rootCmd.PersistentFlags().StringVarP(&Delimiter, "Delimiter", "d", "", "output header (CSV only)")
+	rootCmd.PersistentFlags().StringVarP(&Delimiter, "Delimiter", "d", ",", "output header (CSV only)")
 	rootCmd.PersistentFlags().StringVarP(&Query, "Query", "q", "", "query")
 }
 
-func outFormat() trdsql.Format {
+func outFormat() trdsql.Writer {
+	var format trdsql.Format
 	switch strings.ToUpper(OutFormat) {
 	case "CSV":
-		return trdsql.CSV
+		format = trdsql.CSV
 	case "LTSV":
-		return trdsql.LTSV
+		format = trdsql.LTSV
 	case "JSON":
-		return trdsql.JSON
+		format = trdsql.JSON
 	case "TBLN":
-		return trdsql.TBLN
+		format = trdsql.TBLN
 	case "RAW":
-		return trdsql.RAW
+		format = trdsql.RAW
 	case "MD":
-		return trdsql.MD
+		format = trdsql.MD
 	case "AT":
-		return trdsql.AT
+		format = trdsql.AT
 	case "VF":
-		return trdsql.VF
+		format = trdsql.VF
+	default:
+		format = trdsql.AT
 	}
-	return trdsql.AT
+	w := trdsql.NewWriter(
+		trdsql.OutFormat(format),
+		trdsql.OutDelimiter(Delimiter),
+		trdsql.OutHeader(Header),
+	)
+	return w
 }

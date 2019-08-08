@@ -29,7 +29,7 @@ func CPUPercentReader(total bool) (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psCPUPercent, v), nil
 }
 
-func CPUTimeQuery(total bool, query string, out trdsql.Format) error {
+func CPUTimeQuery(total bool, query string, w trdsql.Writer) error {
 	reader, err := CPUTimeReader(total)
 	if err != nil {
 		return err
@@ -38,10 +38,10 @@ func CPUTimeQuery(total bool, query string, out trdsql.Format) error {
 	if query == "" {
 		query = defaultQuery
 	}
-	return readerQuery(reader, query, out)
+	return readerExec(reader, query, w)
 }
 
-func CPUInfoQuery(query string, out trdsql.Format) error {
+func CPUInfoQuery(query string, w trdsql.Writer) error {
 	reader, err := CPUInfoReader()
 	if err != nil {
 		return err
@@ -50,10 +50,10 @@ func CPUInfoQuery(query string, out trdsql.Format) error {
 	if query == "" {
 		query = defaultQuery
 	}
-	return readerQuery(reader, query, out)
+	return readerExec(reader, query, w)
 }
 
-func CPUPercentQuery(total bool, query string, out trdsql.Format) error {
+func CPUPercentQuery(total bool, query string, w trdsql.Writer) error {
 	reader, err := CPUPercentReader(total)
 	if err != nil {
 		return err
@@ -62,5 +62,5 @@ func CPUPercentQuery(total bool, query string, out trdsql.Format) error {
 	if query == "" {
 		query = defaultQuery
 	}
-	return readerQuery(reader, query, out)
+	return readerExec(reader, query, w)
 }

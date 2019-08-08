@@ -67,7 +67,7 @@ func (p *ProcessReader) ReadRow(row []interface{}) ([]interface{}, error) {
 	return nil, io.EOF
 }
 
-func ProcessQuery(ex bool, query string, out trdsql.Format) error {
+func ProcessQuery(ex bool, query string, w trdsql.Writer) error {
 	reader, err := NewProcessReader(ex)
 	if err != nil {
 		return err
@@ -80,5 +80,5 @@ func ProcessQuery(ex bool, query string, out trdsql.Format) error {
 		query = defaultQuery
 	}
 
-	return readerQuery(reader, query, out)
+	return readerExec(reader, query, w)
 }

@@ -10,7 +10,7 @@ var queryCmd = &cobra.Command{
 	Use:   "query",
 	Short: "SQL query command",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return psutilsql.QueryImport(args[0], outFormat())
+		return psutilsql.QueryExec(args[0], outFormat())
 	},
 }
 

@@ -72,7 +72,17 @@ func psutilReader(tableName string) Reader {
 	return reader
 }
 
-func QueryImport(query string, out trdsql.Format) error {
+func readerExec(reader Reader, query string, writer trdsql.Writer) error {
+	importer, err := NewMultiImporter(reader)
+	if err != nil {
+		return err
+	}
+	trd := trdsql.NewTRDSQL(importer, trdsql.NewExporter(writer))
+	err = trd.Exec(query)
+	return err
+}
+
+func QueryExec(query string, writer trdsql.Writer) error {
 	tables := trdsql.TableNames(query)
 	var readers []Reader
 	for _, table := range tables {
@@ -85,7 +95,6 @@ func QueryImport(query string, out trdsql.Format) error {
 	if err != nil {
 		return err
 	}
-	writer := trdsql.NewWriter(trdsql.OutFormat(out))
 	trd := trdsql.NewTRDSQL(importer, trdsql.NewExporter(writer))
 	err = trd.Exec(query)
 	return err

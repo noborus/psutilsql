@@ -40,7 +40,7 @@ func NetReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psNet, data), nil
 }
 
-func NetQuery(query string, out trdsql.Format) error {
+func NetQuery(query string, w trdsql.Writer) error {
 	reader, err := NetReader()
 	if err != nil {
 		return err
@@ -49,5 +49,5 @@ func NetQuery(query string, out trdsql.Format) error {
 	if query == "" {
 		query = defaultQuery
 	}
-	return readerQuery(reader, query, out)
+	return readerExec(reader, query, w)
 }
