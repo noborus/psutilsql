@@ -7,19 +7,6 @@ import (
 	"github.com/shirou/gopsutil/process"
 )
 
-func ProcessQuery(ex bool, query string, out trdsql.Format) error {
-	reader, err := NewProcessReader(ex)
-	if err != nil {
-		return err
-	}
-	defaultQuery := "SELECT * FROM process ORDER BY pid"
-	if query == "" {
-		query = defaultQuery
-	}
-
-	return readerQuery(reader, query, out)
-}
-
 type ProcessReader struct {
 	tableName string
 	names     []string
@@ -33,6 +20,7 @@ func NewProcessReader(ex bool) (*ProcessReader, error) {
 	pr.tableName = "process"
 	columns := []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFO, COMMAND}
 	if ex {
+		pr.tableName = "processex"
 		columns = []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFOEX, COMMAND}
 	}
 	for _, cn := range columns {
@@ -77,4 +65,20 @@ func (p *ProcessReader) PreReadRow() [][]interface{} {
 // ReadRow only returns EOF.
 func (p *ProcessReader) ReadRow(row []interface{}) ([]interface{}, error) {
 	return nil, io.EOF
+}
+
+func ProcessQuery(ex bool, query string, out trdsql.Format) error {
+	reader, err := NewProcessReader(ex)
+	if err != nil {
+		return err
+	}
+	defaultQuery := "SELECT * FROM process ORDER BY pid"
+	if ex {
+		defaultQuery = "SELECT * FROM processex ORDER BY pid"
+	}
+	if query == "" {
+		query = defaultQuery
+	}
+
+	return readerQuery(reader, query, out)
 }

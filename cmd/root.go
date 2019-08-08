@@ -5,6 +5,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/noborus/psutilsql"
+
 	"github.com/noborus/trdsql"
 	"github.com/spf13/cobra"
 )
@@ -17,6 +19,9 @@ var rootCmd = &cobra.Command{
 
 SQL can be executed on the information acquired using gopsutil library.
 Default SQL is provided, so you can omit SQL if you select a command.`,
+	RunE: func(c *cobra.Command, args []string) error {
+		return psutilsql.QueryImport(Query, outFormat())
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
