@@ -30,7 +30,7 @@ func CPUPercentReader(total bool) (*trdsql.SliceReader, error) {
 }
 
 func CPUTimeQuery(total bool, query string, out trdsql.Format) error {
-	reader, err := CPUTimeReader(!total)
+	reader, err := CPUTimeReader(total)
 	if err != nil {
 		return err
 	}
