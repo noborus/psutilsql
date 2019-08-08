@@ -30,7 +30,7 @@ func Execute() {
 	cmd, _, err := rootCmd.Find(os.Args[1:])
 	if err != nil || cmd == nil {
 		// Not found
-		args := append([]string{"-q"}, os.Args[1:]...)
+		args := append([]string{"query"}, os.Args[1:]...)
 		rootCmd.SetArgs(args)
 	}
 	if err := rootCmd.Execute(); err != nil {
@@ -49,7 +49,7 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	rootCmd.PersistentFlags().StringVarP(&OutFormat, "OutFormat", "o", "", "output format")
-	rootCmd.PersistentFlags().BoolVarP(&Header, "Header", "", false, "output header (CSV only)")
+	rootCmd.PersistentFlags().BoolVarP(&Header, "Header", "O", false, "output header (CSV only)")
 	rootCmd.PersistentFlags().StringVarP(&Delimiter, "Delimiter", "d", "", "output header (CSV only)")
 	rootCmd.PersistentFlags().StringVarP(&Query, "Query", "q", "", "query")
 }
