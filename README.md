@@ -101,10 +101,12 @@ Available Commands:
   table       table list
 
 Flags:
-  -d, --Delimiter string   output header (CSV only)
+  -d, --Delimiter string   output delimiter (CSV only) (default ",")
   -O, --Header             output header (CSV only)
-  -o, --OutFormat string   output format
+  -o, --OutFormat string   output format=at|csv|ltsv|json|tbln|raw|md|vf (default "at")
   -q, --Query string       query
   -h, --help               help for psutilsql
   -t, --toggle             Help message for toggle
+
+Use "psutilsql [command] --help" for more information about a command.
 ```
