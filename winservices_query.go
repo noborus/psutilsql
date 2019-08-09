@@ -8,14 +8,14 @@ import (
 )
 
 func WinservicesReader() (*trdsql.SliceReader, error) {
-	v, err := winservices.Info()
+	v, err := winservices.ListServices()
 	if err != nil {
 		return nil, err
 	}
 	return trdsql.NewSliceReader("winservices", v), nil
 }
 
-func WinservicesQuery(query string, out trdsql.Format) error {
+func WinservicesQuery(query string, w trdsql.Writer) error {
 	reader, err := WinservicesReader()
 	if err != nil {
 		return err
@@ -25,5 +25,5 @@ func WinservicesQuery(query string, out trdsql.Format) error {
 	if query == "" {
 		query = defaultQuery
 	}
-	return readerQuery(reader, query, out)
+	return readerExec(reader, query, w)
 }

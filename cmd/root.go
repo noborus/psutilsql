@@ -48,9 +48,9 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	rootCmd.PersistentFlags().StringVarP(&OutFormat, "OutFormat", "o", "", "output format")
+	rootCmd.PersistentFlags().StringVarP(&OutFormat, "OutFormat", "o", "at", "output format=at|csv|ltsv|json|tbln|raw|md|vf")
+	rootCmd.PersistentFlags().StringVarP(&Delimiter, "Delimiter", "d", ",", "output delimiter (CSV only)")
 	rootCmd.PersistentFlags().BoolVarP(&Header, "Header", "O", false, "output header (CSV only)")
-	rootCmd.PersistentFlags().StringVarP(&Delimiter, "Delimiter", "d", ",", "output header (CSV only)")
 	rootCmd.PersistentFlags().StringVarP(&Query, "Query", "q", "", "query")
 }
 

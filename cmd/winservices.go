@@ -15,7 +15,7 @@ var winservicesCmd = &cobra.Command{
 	Long: `winservices information.
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return psutilsql.Winservices(Query, outFormat())
+		return psutilsql.WinservicesQuery(Query, outFormat())
 	},
 }
 
