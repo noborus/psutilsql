@@ -18,8 +18,7 @@ The column names are CPU, User, System, Idle, Nice, Iowait, Irq, Softirq, Steal,
 Option info gets the result of cpu.Info().
 The column names are CPU, VendorID, Family, Model, Stepping, PhysicalID, CoreID, Cores, ModelName, Mhz, CacheSize, Flags, Microcode.
 
-Option percent gets the result of cpu.Percent().
-
+Option percent gets the result of cpu.Percent
 Option total gets the result of the total on one row.
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -55,7 +54,7 @@ Option total gets the result of the total on one row.
 func init() {
 	rootCmd.AddCommand(cpuCmd)
 	cpuCmd.PersistentFlags().BoolP("info", "i", false, "CPU info")
-	cpuCmd.PersistentFlags().BoolP("percent", "p", false, " per CPU")
-	cpuCmd.PersistentFlags().BoolP("total", "t", false, "total CPU info")
+	cpuCmd.PersistentFlags().BoolP("percent", "p", false, "CPU Percent")
+	cpuCmd.PersistentFlags().BoolP("total", "t", false, "Per CPU or total")
 	cpuCmd.PersistentFlags().BoolP("time", "", true, "CPU Time")
 }

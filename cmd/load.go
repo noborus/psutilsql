@@ -22,6 +22,6 @@ var loadCmd = &cobra.Command{
 }
 
 func init() {
-	loadCmd.PersistentFlags().BoolP("misc", "m", false, " miscellaneous host-wide statistics")
+	loadCmd.PersistentFlags().BoolP("misc", "m", false, "miscellaneous host-wide statistics")
 	rootCmd.AddCommand(loadCmd)
 }

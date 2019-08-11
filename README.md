@@ -8,8 +8,11 @@ Therefore, CSV, JSON, LTSV, MarkDown, Raw, Vertical, and TBLN can be selected as
 ## install
 
 ```console
-$ go get -u github.com/shirou/gopsutil...
+$ go get -u github.com/noborus/psutilsql...
 ```
+
+psutilsql depends on go-sqlite3.
+Therefore, gcc is required to build.
 
 ## Usage
 
@@ -110,3 +113,92 @@ Flags:
 
 Use "psutilsql [command] --help" for more information about a command.
 ```
+
+### cpu
+
+--time: cpu time(default)
+
+| CPU | User | System | Idle | Nice | Iowait | Irq | Softirq | Steal | Guest | GuestNice |
+|-----|------|--------|------|------|--------|-----|---------|-------|-------|-----------|
+
+--info, -i: cpu info
+
+| CPU | VendorID | Family | Model | Stepping | PhysicalID | CoreID | Cores | ModelName | Mhz | CacheSize | Flags | Microcode |
+|-----|----------|--------|-------|----------|------------|--------|-------|-----------|-----|-----------|-------|-----------|
+
+--percent,-p: cpu percent
+
+### disk
+
+--partition: disk partition(default)
+
+| Device | Mountpoint | Fstype | Opts |
+|--------|------------|--------|------|
+
+--usage [disk]: disk usage
+
+| Path | Fstype | Total | Free | Used | UsedPercent | InodesTotal | InodesUsed |InodesFree | InodesUsedPercent |
+|------|--------|-------|------|------|-------------|-------------|------------|------------|-------------------|
+
+### docker
+
+| ContainerID | Name | Image | Status | Running |
+|-------------|------|-------|--------|---------|
+
+
+### host
+
+--info: host information(default)
+
+| Hostname | Uptime | BootTime | Procs | OS | Platform | PlatformFamily | PlatformVersion | KernelVersion | VirtualizationSystem | VirtualizationRole | HostID |
+|----------|--------|----------|-------|----|----------|----------------|-----------------|---------------|----------------------|--------------------|--------|
+
+--user,-u: user information
+
+| User | Terminal | Host | Started |
+|------|----------|------|---------|
+
+--temperatures, -t: SensorsTemperatures
+
+| SensorKey | Temperature |
+|-----------|-------------|
+
+
+### load
+
+| Load1 | Load5 | Load15 |
+|-------|-------|--------|
+
+--misc,-m: miscellaneous host-wide statistics
+
+| ProcsTotal | ProcsRunning | ProcsBlocked | Ctxt |
+|------------|--------------|--------------|------|
+
+### mem
+
+VirtualMemory(default)
+
+| Total | Available | Used | UsedPercent | Free | Active | Inactive | Wired | Laundry | Buffers | Cached | Writeback | Dirty | WritebackTmp | Shared | Slab | SReclaimable | SUnreclaim | PageTables | SwapCached | CommitLimit | CommittedAS | HighTotal | HighFree | LowTotal | LowFree | SwapTotal | SwapFree | Mapped | VMallocTotal | VMallocUsed | VMallocChunk | HugePagesTotal | HugePagesFree | HugePageSize |
+|-------|-----------|------|-------------|------|--------|----------|-------|---------|---------|--------|-----------|-------|--------------|--------|------|--------------|------------|------------|------------|-------------|-------------|-----------|----------|----------|---------|-----------|----------|--------|--------------|-------------|--------------|----------------|---------------|--------------|
+
+--swap, -s: SwapMemory
+
+| Total | Used | Free | UsedPercent | Sin | Sout | PgIn | PgOut | PgFault |
+|-------|------|------|-------------|-----|------|------|-------|---------|
+
+
+### net
+
+| Fd | Family | Type | LaddrIP | LaddrPort | RaddrIP | RaddrPort | status | Uids | Pid |
+|----|--------|------|---------|-----------|---------|-----------|--------|------|-----|
+
+### process
+
+| pid | name | CPU | MEM | STATUS | START | USER | RSS | VMS | Data | Stack | locked | Swap | COMMAND |
+|-----|------|-----|-----|--------|-------|------|-----|-----|------|-------|--------|------|---------|
+
+
+--ex: memory info ex
+
+| pid | name | CPU | MEM | STATUS | START | USER | RSS | VMS | Shared | Text | Lib | Data | Dirty | COMMAND |
+|-----|------|-----|-----|--------|-------|------|-----|-----|--------|------|-----|------|-------|---------|

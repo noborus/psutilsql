@@ -11,6 +11,8 @@ var diskCmd = &cobra.Command{
 	Use:   "disk",
 	Short: "DISK information",
 	Long: `DISK information
+
+Disk partition information and usage information.
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var err error
