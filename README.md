@@ -5,6 +5,8 @@ CLI tool that can be processed by SQL using  [gopsutil](https://github.com/shiro
 SQL input/output is handled by [trdsql](https://github.com/noborus/trdsql).
 Therefore, CSV, JSON, LTSV, MarkDown, Raw, Vertical, and TBLN can be selected as the output format.
 
+![psutilsql.gif](doc/psutilsql.gif)
+
 ## install
 
 ```console
@@ -196,7 +198,6 @@ VirtualMemory(default)
 
 | pid | name | CPU | MEM | STATUS | START | USER | RSS | VMS | Data | Stack | locked | Swap | COMMAND |
 |-----|------|-----|-----|--------|-------|------|-----|-----|------|-------|--------|------|---------|
-
 
 --ex: memory info ex
 

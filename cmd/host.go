@@ -10,6 +10,20 @@ var hostCmd = &cobra.Command{
 	Use:   "host",
 	Short: "host information",
 	Long: `host information.
+
++----------+--------+----------+-------+----+----------+----------------+-----------------+---------------+----------------------+--------------------+--------+
+| Hostname | Uptime | BootTime | Procs | OS | Platform | PlatformFamily | PlatformVersion | KernelVersion | VirtualizationSystem | VirtualizationRole | HostID |
++----------+--------+----------+-------+----+----------+----------------+-----------------+---------------+----------------------+--------------------+--------+
+
+Option user gets the result of user information.
++---------+----------+------+------------+
+|  User   | Terminal | Host |  Started   |
++---------+----------+------+------------+
+
+Option temperatures gets the result of SensorsTemperatures
++-----------+-------------+
+| SensorKey | Temperature |
++-----------+-------------+
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var err error
@@ -27,7 +41,7 @@ var hostCmd = &cobra.Command{
 
 func init() {
 	hostCmd.PersistentFlags().BoolP("temperatures", "t", false, "SensorsTemperatures")
-	hostCmd.PersistentFlags().BoolP("users", "u", false, "users")
+	hostCmd.PersistentFlags().BoolP("users", "u", false, "user information")
 
 	rootCmd.AddCommand(hostCmd)
 }

@@ -11,6 +11,9 @@ var netCmd = &cobra.Command{
 	Use:   "net",
 	Short: "net information",
 	Long: `net information.
++----+--------+------+---------+-----------+---------+-----------+--------+------+-----+
+| Fd | Family | Type | LaddrIP | LaddrPort | RaddrIP | RaddrPort | status | Uids | Pid |
++----+--------+------+---------+-----------+---------+-----------+--------+------+-----+
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return psutilsql.NetQuery(Query, outFormat())

@@ -12,7 +12,16 @@ var diskCmd = &cobra.Command{
 	Short: "DISK information",
 	Long: `DISK information
 
-Disk partition information and usage information.
+Disk partition information.
++--------+------------+--------+------+
+| Device | Mountpoint | Fstype | Opts |
++--------+------------+--------+------+
+
+Option usage gets the result of disk usage information.
++------+--------+-------+------+------+-------------+-------------+------------+------------+-------------------+
+| Path | Fstype | Total | Free | Used | UsedPercent | InodesTotal | InodesUsed | InodesFree | InodesUsedPercent |
++------+--------+-------+------+------+-------------+-------------+------------+------------+-------------------+
+
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var err error

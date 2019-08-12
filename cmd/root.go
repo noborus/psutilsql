@@ -20,6 +20,9 @@ var rootCmd = &cobra.Command{
 SQL can be executed on the information acquired using gopsutil library.
 Default SQL is provided, so you can omit SQL if you select a command.`,
 	RunE: func(c *cobra.Command, args []string) error {
+		if len(Query) == 0 && len(args) == 0 {
+			return fmt.Errorf("require query")
+		}
 		return psutilsql.QueryExec(Query, outFormat())
 	},
 }
@@ -34,7 +37,8 @@ func Execute() {
 		rootCmd.SetArgs(args)
 	}
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		rootCmd.SetOutput(os.Stderr)
+		rootCmd.Println(err)
 		os.Exit(1)
 	}
 }

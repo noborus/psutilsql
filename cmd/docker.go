@@ -11,6 +11,10 @@ var dockerCmd = &cobra.Command{
 	Use:   "docker",
 	Short: "docker information",
 	Long: `docker information
+
++-------------+------+-------+--------+---------+
+| ContainerID | Name | Image | Status | Running |
++-------------+------+-------+--------+---------+
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return psutilsql.DockerQuery(Query, outFormat())

@@ -13,12 +13,17 @@ var cpuCmd = &cobra.Command{
 	Long: `CPU information
 
 Option times (default) gets the result of cpu.Times().
-The column names are CPU, User, System, Idle, Nice, Iowait, Irq, Softirq, Steal, Guest, GuestNice, Stolen.
++-----+------+--------+------+------+--------+-----+---------+-------+-------+-----------+
+| CPU | User | System | Idle | Nice | Iowait | Irq | Softirq | Steal | Guest | GuestNice |
++-----+------+--------+------+------+--------+-----+---------+-------+-------+-----------+
 
 Option info gets the result of cpu.Info().
-The column names are CPU, VendorID, Family, Model, Stepping, PhysicalID, CoreID, Cores, ModelName, Mhz, CacheSize, Flags, Microcode.
++-----+----------+--------+-------+----------+------------+--------+-------+-----------+-----+-----------+-------+-----------+
+| CPU | VendorID | Family | Model | Stepping | PhysicalID | CoreID | Cores | ModelName | Mhz | CacheSize | Flags | Microcode |
++-----+----------+--------+-------+----------+------------+--------+-------+-----------+-----+-----------+-------+-----------+
 
 Option percent gets the result of cpu.Percent
+
 Option total gets the result of the total on one row.
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {

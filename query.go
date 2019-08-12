@@ -84,6 +84,9 @@ func readerExec(reader Reader, query string, writer trdsql.Writer) error {
 
 func QueryExec(query string, writer trdsql.Writer) error {
 	tables := trdsql.TableNames(query)
+	if tables == nil {
+		return nil
+	}
 	var readers []Reader
 	for _, table := range tables {
 		reader := psutilReader(table)
