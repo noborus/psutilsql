@@ -1,7 +1,9 @@
 package psutilsql
 
 import (
+	"fmt"
 	"io"
+	"runtime"
 
 	"github.com/noborus/trdsql"
 	"github.com/shirou/gopsutil/process"
@@ -21,7 +23,11 @@ func NewProcessReader(ex bool) (*ProcessReader, error) {
 	columns := []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFO, COMMAND}
 	if ex {
 		pr.tableName = psProcessEx
-		columns = []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFOEX, COMMAND}
+		if runtime.GOOS == "linux" {
+			columns = []ColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFOEX, COMMAND}
+		} else {
+			return nil, fmt.Errorf("not supported")
+		}
 	}
 	for _, cn := range columns {
 		col := ProcessColumn[cn]
@@ -38,7 +44,8 @@ func NewProcessReader(ex bool) (*ProcessReader, error) {
 	for i, p := range processes {
 		pr.data[i] = []interface{}{}
 		for _, getFunc := range pr.funcs {
-			pr.data[i] = append(pr.data[i], getFunc(p)...)
+			v := getFunc(p)
+			pr.data[i] = append(pr.data[i], v...)
 		}
 	}
 
