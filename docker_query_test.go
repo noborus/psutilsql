@@ -1,12 +1,16 @@
 package psutilsql
 
 import (
+	"runtime"
 	"testing"
 
 	"github.com/noborus/trdsql"
 )
 
 func TestDockerReader(t *testing.T) {
+	if runtime.GOOS != "linux" {
+		t.Skip("skipping specific test")
+	}
 	tests := []struct {
 		name    string
 		wantErr bool
@@ -28,6 +32,9 @@ func TestDockerReader(t *testing.T) {
 }
 
 func TestDockerQuery(t *testing.T) {
+	if runtime.GOOS != "linux" {
+		t.Skip("skipping specific test")
+	}
 	type args struct {
 		query string
 		w     trdsql.Writer

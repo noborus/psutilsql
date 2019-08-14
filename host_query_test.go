@@ -1,6 +1,7 @@
 package psutilsql
 
 import (
+	"runtime"
 	"testing"
 
 	"github.com/noborus/trdsql"
@@ -50,6 +51,9 @@ func TestHostUsersReader(t *testing.T) {
 }
 
 func TestHostTemperatureReader(t *testing.T) {
+	if runtime.GOOS != "linux" {
+		t.Skip("skipping specific test")
+	}
 	tests := []struct {
 		name    string
 		wantErr bool
@@ -100,6 +104,9 @@ func TestHostQuery(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			if tt.name == "testTempera" && runtime.GOOS != "linux" {
+				t.Skip("skipping specific test")
+			}
 			if err := HostQuery(tt.args.tempera, tt.args.users, tt.args.query, tt.args.w); (err != nil) != tt.wantErr {
 				t.Errorf("HostQuery() error = %v, wantErr %v", err, tt.wantErr)
 			}
