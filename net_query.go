@@ -5,6 +5,7 @@ import (
 	"github.com/shirou/gopsutil/net"
 )
 
+// NetReader returns net.Connections result as trdsql.SliceReader.
 func NetReader() (*trdsql.SliceReader, error) {
 	conns, err := net.Connections("all")
 	if err != nil {
@@ -40,6 +41,7 @@ func NetReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psNet, data), nil
 }
 
+// NetQuery executes SQL on net.Connections.
 func NetQuery(query string, w trdsql.Writer) error {
 	reader, err := NetReader()
 	if err != nil {

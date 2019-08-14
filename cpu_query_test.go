@@ -102,12 +102,12 @@ func TestCPUTimeQuery(t *testing.T) {
 	}{
 		{
 			name:    "test1",
-			args:    args{total: false, w: trdsql.NewWriter()},
+			args:    args{total: false, w: nullWriter()},
 			wantErr: false,
 		},
 		{
 			name:    "testTotal",
-			args:    args{total: true, w: trdsql.NewWriter()},
+			args:    args{total: true, w: nullWriter()},
 			wantErr: false,
 		},
 	}
@@ -132,7 +132,7 @@ func TestCPUInfoQuery(t *testing.T) {
 	}{
 		{
 			name:    "test1",
-			args:    args{w: trdsql.NewWriter()},
+			args:    args{w: nullWriter()},
 			wantErr: false,
 		},
 	}
@@ -158,12 +158,12 @@ func TestCPUPercentQuery(t *testing.T) {
 	}{
 		{
 			name:    "test1",
-			args:    args{total: false, w: trdsql.NewWriter()},
+			args:    args{total: false, w: nullWriter()},
 			wantErr: false,
 		},
 		{
 			name:    "testTotal",
-			args:    args{total: true, w: trdsql.NewWriter()},
+			args:    args{total: true, w: nullWriter()},
 			wantErr: false,
 		},
 	}

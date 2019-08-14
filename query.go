@@ -44,7 +44,7 @@ func psutilReader(tableName string) Reader {
 	case psHostInfo:
 		reader, err = HostInfoReader()
 	case psHostUser:
-		reader, err = HostUserReader()
+		reader, err = HostUsersReader()
 	case psHostTemperature:
 		reader, err = HostTemperatureReader()
 	case psLoadAvg:

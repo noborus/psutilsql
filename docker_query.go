@@ -5,6 +5,7 @@ import (
 	"github.com/shirou/gopsutil/docker"
 )
 
+// DockerReader returns docker.GetDockerStat result as trdsql.SliceReader.
 func DockerReader() (*trdsql.SliceReader, error) {
 	v, err := docker.GetDockerStat()
 	if err != nil {
@@ -13,6 +14,7 @@ func DockerReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psDocker, v), nil
 }
 
+// DockerQuery executes SQL on docker.GetDockerStat.
 func DockerQuery(query string, w trdsql.Writer) error {
 	reader, err := DockerReader()
 	if err != nil {

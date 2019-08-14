@@ -5,6 +5,7 @@ import (
 	"github.com/shirou/gopsutil/host"
 )
 
+// HostInfoReader returns host.Info result as trdsql.SliceReader.
 func HostInfoReader() (*trdsql.SliceReader, error) {
 	v, err := host.Info()
 	if err != nil {
@@ -13,7 +14,8 @@ func HostInfoReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psHostInfo, v), nil
 }
 
-func HostUserReader() (*trdsql.SliceReader, error) {
+// HostUsersReader returns host.Users result as trdsql.SliceReader.
+func HostUsersReader() (*trdsql.SliceReader, error) {
 	v, err := host.Users()
 	if err != nil {
 		return nil, err
@@ -21,6 +23,7 @@ func HostUserReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psHostUser, v), nil
 }
 
+// HostTemperatureReader returns host.SensorsTemperatures result as trdsql.SliceReader.
 func HostTemperatureReader() (*trdsql.SliceReader, error) {
 	v, err := host.SensorsTemperatures()
 	if err != nil {
@@ -29,6 +32,7 @@ func HostTemperatureReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psHostTemperature, v), nil
 }
 
+// HostQuery executes SQL on host.Info or host.Users or host.SensorsTemperatures.
 func HostQuery(tempera bool, users bool, query string, w trdsql.Writer) error {
 	if tempera {
 		reader, err := HostTemperatureReader()
@@ -41,7 +45,7 @@ func HostQuery(tempera bool, users bool, query string, w trdsql.Writer) error {
 		}
 		return readerExec(reader, query, w)
 	} else if users {
-		reader, err := HostUserReader()
+		reader, err := HostUsersReader()
 		if err != nil {
 			return err
 		}

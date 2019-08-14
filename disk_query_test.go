@@ -76,12 +76,12 @@ func TestDiskPartitionQuery(t *testing.T) {
 	}{
 		{
 			name:    "testFalse",
-			args:    args{all: false, w: trdsql.NewWriter()},
+			args:    args{all: false, w: nullWriter()},
 			wantErr: false,
 		},
 		{
 			name:    "testTrue",
-			args:    args{all: true, w: trdsql.NewWriter()},
+			args:    args{all: true, w: nullWriter()},
 			wantErr: false,
 		},
 	}
@@ -107,7 +107,7 @@ func TestDiskUsageQuery(t *testing.T) {
 	}{
 		{
 			name:    "test1",
-			args:    args{usage: "/", w: trdsql.NewWriter()},
+			args:    args{usage: "/", w: nullWriter()},
 			wantErr: false,
 		},
 	}

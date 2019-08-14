@@ -7,6 +7,7 @@ import (
 	"github.com/shirou/gopsutil/winservices"
 )
 
+// WinservicesReader returns winservices.ListServices as trdsql.SliceReader.
 func WinservicesReader() (*trdsql.SliceReader, error) {
 	v, err := winservices.ListServices()
 	if err != nil {
@@ -15,6 +16,7 @@ func WinservicesReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader("winservices", v), nil
 }
 
+// WinservicesQuery executes SQL on winservices.ListServices.
 func WinservicesQuery(query string, w trdsql.Writer) error {
 	reader, err := WinservicesReader()
 	if err != nil {

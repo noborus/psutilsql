@@ -9,10 +9,10 @@ import (
 	"github.com/shirou/gopsutil/process"
 )
 
-type ColumnNum int
+type pColumnNum int
 
 const (
-	PID ColumnNum = iota
+	PID pColumnNum = iota
 	NAME
 	CPU
 	MEM
@@ -39,7 +39,7 @@ const (
 	COMMAND
 )
 
-type processColumn struct {
+type pColumn struct {
 	names   []string
 	types   []string
 	getFunc func(p *process.Process) []interface{}

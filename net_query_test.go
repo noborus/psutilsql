@@ -6,28 +6,28 @@ import (
 	"github.com/noborus/trdsql"
 )
 
-func TestDockerReader(t *testing.T) {
+func TestNetReader(t *testing.T) {
 	tests := []struct {
 		name    string
 		wantErr bool
 	}{
 		{
-			name:    "test1",
+			name:    "testTrue",
 			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := DockerReader()
+			_, err := NetReader()
 			if (err != nil) != tt.wantErr {
-				t.Errorf("DockerReader() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("NetReader() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 		})
 	}
 }
 
-func TestDockerQuery(t *testing.T) {
+func TestNetQuery(t *testing.T) {
 	type args struct {
 		query string
 		w     trdsql.Writer
@@ -45,8 +45,8 @@ func TestDockerQuery(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := DockerQuery(tt.args.query, tt.args.w); (err != nil) != tt.wantErr {
-				t.Errorf("DockerQuery() error = %v, wantErr %v", err, tt.wantErr)
+			if err := NetQuery(tt.args.query, tt.args.w); (err != nil) != tt.wantErr {
+				t.Errorf("NetQuery() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

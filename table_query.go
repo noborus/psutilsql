@@ -4,6 +4,7 @@ import (
 	"github.com/noborus/trdsql"
 )
 
+// TableReader return table as trdsql.SliceReader.
 func TableReader() (*trdsql.SliceReader, error) {
 	type tableName struct {
 		name string
@@ -29,6 +30,7 @@ func TableReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader("pstable", tables), nil
 }
 
+// PSTableQuery executes SQL on tables.
 func PSTableQuery(query string, w trdsql.Writer) error {
 	reader, err := TableReader()
 	if err != nil {

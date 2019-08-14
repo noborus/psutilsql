@@ -5,6 +5,7 @@ import (
 	"github.com/shirou/gopsutil/load"
 )
 
+// LoadAvgReader returns load.Avg result as trdsql.SliceReader.
 func LoadAvgReader() (*trdsql.SliceReader, error) {
 	v, err := load.Avg()
 	if err != nil {
@@ -13,6 +14,7 @@ func LoadAvgReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psLoadAvg, v), nil
 }
 
+// LoadMiscReader returns load.Misc result as trdsql.SliceReader.
 func LoadMiscReader() (*trdsql.SliceReader, error) {
 	v, err := load.Misc()
 	if err != nil {
@@ -21,6 +23,7 @@ func LoadMiscReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psLoadMisc, v), nil
 }
 
+// LoadQuery executes SQL on Load.Avg or Load.Misc.
 func LoadQuery(misc bool, query string, w trdsql.Writer) error {
 	if misc {
 		defaultQuery := "SELECT * FROM " + psLoadMisc

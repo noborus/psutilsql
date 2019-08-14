@@ -5,6 +5,7 @@ import (
 	"github.com/shirou/gopsutil/cpu"
 )
 
+// CPUTimeReader returns cpu.Times result as trdsql.SliceReader.
 func CPUTimeReader(total bool) (*trdsql.SliceReader, error) {
 	v, err := cpu.Times(!total)
 	if err != nil {
@@ -13,6 +14,7 @@ func CPUTimeReader(total bool) (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psCPUTime, v), nil
 }
 
+// CPUInfoReader returns cpu.Info result as trdsql.SliceReader.
 func CPUInfoReader() (*trdsql.SliceReader, error) {
 	v, err := cpu.Info()
 	if err != nil {
@@ -21,6 +23,7 @@ func CPUInfoReader() (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psCPUInfo, v), nil
 }
 
+// CPUPercentReader returns cpu.Percent result as trdsql.SliceReader.
 func CPUPercentReader(total bool) (*trdsql.SliceReader, error) {
 	v, err := cpu.Percent(0, !total)
 	if err != nil {
@@ -29,6 +32,7 @@ func CPUPercentReader(total bool) (*trdsql.SliceReader, error) {
 	return trdsql.NewSliceReader(psCPUPercent, v), nil
 }
 
+// CPUTimeQuery executes SQL on cpu.Time.
 func CPUTimeQuery(total bool, query string, w trdsql.Writer) error {
 	reader, err := CPUTimeReader(total)
 	if err != nil {
@@ -41,6 +45,7 @@ func CPUTimeQuery(total bool, query string, w trdsql.Writer) error {
 	return readerExec(reader, query, w)
 }
 
+// CPUInfoQuery executes SQL on cpu.Info.
 func CPUInfoQuery(query string, w trdsql.Writer) error {
 	reader, err := CPUInfoReader()
 	if err != nil {
@@ -53,6 +58,7 @@ func CPUInfoQuery(query string, w trdsql.Writer) error {
 	return readerExec(reader, query, w)
 }
 
+// CPUPercentQuery executes SQL on cpu.Percent.
 func CPUPercentQuery(total bool, query string, w trdsql.Writer) error {
 	reader, err := CPUPercentReader(total)
 	if err != nil {

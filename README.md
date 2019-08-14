@@ -1,5 +1,7 @@
 # psutilsql
 
+[![Build Status](https://travis-ci.com/noborus/psutilsql.svg?branch=master)](https://travis-ci.com/noborus/psutilsql)
+
 CLI tool that can be processed by SQL using  [gopsutil](https://github.com/shirou/gopsutil) library.
 
 SQL input/output is handled by [trdsql](https://github.com/noborus/trdsql).
@@ -13,7 +15,7 @@ Therefore, CSV, JSON, LTSV, MarkDown, Raw, Vertical, and TBLN can be selected as
 $ go get -u github.com/noborus/psutilsql...
 ```
 
-psutilsql depends on go-sqlite3.
+psutilsql depends on [go-sqlite3](https://github.com/mattn/go-sqlite3).
 Therefore, gcc is required to build.
 
 ## Usage
