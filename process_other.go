@@ -2,7 +2,7 @@
 
 package psutilsql
 
-var ProcessColumn = map[ColumnNum]processColumn{
+var processColumn = map[pColumnNum]pColumn{
 	PID: {
 		names:   []string{"pid"},
 		types:   []string{"int"},
