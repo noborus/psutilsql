@@ -1,8 +1,8 @@
 package psutilsql
 
 import (
-	"runtime"
 	"fmt"
+	"runtime"
 
 	"github.com/noborus/trdsql"
 )

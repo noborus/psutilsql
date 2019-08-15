@@ -1,5 +1,6 @@
 # psutilsql
 
+[![GoDoc](https://godoc.org/github.com/noborus/psutilsql?status.svg)](https://godoc.org/github.com/noborus/psutilsql)
 [![Build Status](https://travis-ci.com/noborus/psutilsql.svg?branch=master)](https://travis-ci.com/noborus/psutilsql)
 
 CLI tool that can be processed by SQL using  [gopsutil](https://github.com/shirou/gopsutil) library.
