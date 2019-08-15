@@ -1,6 +1,7 @@
 # psutilsql
 
 [![Build Status](https://travis-ci.com/noborus/psutilsql.svg?branch=master)](https://travis-ci.com/noborus/psutilsql)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnoborus%2Fpsutilsql.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnoborus%2Fpsutilsql?ref=badge_shield)
 
 CLI tool that can be processed by SQL using  [gopsutil](https://github.com/shirou/gopsutil) library.
 
@@ -205,3 +206,7 @@ VirtualMemory(default)
 
 | pid | name | CPU | MEM | STATUS | START | USER | RSS | VMS | Shared | Text | Lib | Data | Dirty | COMMAND |
 |-----|------|-----|-----|--------|-------|------|-----|-----|--------|------|-----|------|-------|---------|
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnoborus%2Fpsutilsql.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnoborus%2Fpsutilsql?ref=badge_large)
