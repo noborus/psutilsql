@@ -43,9 +43,16 @@ func Execute() {
 	}
 }
 
+// OutFormat is an output format specification.
 var OutFormat string
+
+// Header is an output header specification(CSV and RAW only).
 var Header bool
+
+// Delimiter is a delimiter specification (CSV ans RAW only).
 var Delimiter string
+
+// Query is SQL specification.
 var Query string
 
 func init() {

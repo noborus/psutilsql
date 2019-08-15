@@ -23,7 +23,7 @@ func WinservicesQuery(query string, w trdsql.Writer) error {
 		return err
 	}
 
-	defaultQuery := "SELECT * FROM winservices"
+	defaultQuery := "SELECT * FROM " + psWinservices
 	if query == "" {
 		query = defaultQuery
 	}

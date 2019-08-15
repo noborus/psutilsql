@@ -10,7 +10,6 @@ import (
 func TestHostInfoReader(t *testing.T) {
 	tests := []struct {
 		name    string
-		want    *trdsql.SliceReader
 		wantErr bool
 	}{
 		{
