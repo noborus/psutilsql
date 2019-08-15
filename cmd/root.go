@@ -26,10 +26,19 @@ Default SQL is provided, so you can omit SQL if you select a command.`,
 		return psutilsql.QueryExec(Query, outFormat())
 	},
 }
+var (
+	// Version represents the version
+	Version string
+	// Revision set "git rev-parse --short HEAD"
+	Revision string
+)
+
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() {
+func Execute(version string, revision string) {
+	Version = version
+	Revision = revision
 	cmd, _, err := rootCmd.Find(os.Args[1:])
 	if err != nil || cmd == nil {
 		// Not found
