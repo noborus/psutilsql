@@ -11,7 +11,11 @@ var tableCmd = &cobra.Command{
 	Use:   "table",
 	Short: "table list",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return psutilsql.PSTableQuery(Query, outFormat())
+		var table string
+		if len(args) > 0 {
+			table = args[0]
+		}
+		return psutilsql.PSTableQuery(table, Query, outFormat())
 	},
 }
 
