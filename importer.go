@@ -9,7 +9,7 @@ type MultiImporter struct {
 	readers []Reader
 }
 
-// Reader is an interface that can be passed to MultiImpoter.
+// Reader is an interface that can be passed to MultiImporter.
 type Reader interface {
 	TableName() (string, error)
 	Names() ([]string, error)

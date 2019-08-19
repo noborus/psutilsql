@@ -12,7 +12,8 @@ builds:
   goarch:
     - amd64
   ldflags:
-     - -X main.Revision={{.ShortCommit}}
+     - -X main.version={{.Version}}
+     - -X main.revision={{.ShortCommit}}
   main: ./cmd/psutilsql/main.go
 archive:
   format_overrides:
