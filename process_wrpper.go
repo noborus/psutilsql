@@ -48,30 +48,38 @@ type pColumn struct {
 func getPid(p *process.Process) []interface{} {
 	return []interface{}{p.Pid}
 }
+
 func strWrap(v string, err error) []interface{} {
 	if err != nil {
 		return []interface{}{""}
 	}
 	return []interface{}{v}
 }
+
 func getName(p *process.Process) []interface{} {
 	return strWrap(p.Name())
 }
+
 func status(p *process.Process) []interface{} {
 	return strWrap(p.Status())
 }
+
 func cmdLine(p *process.Process) []interface{} {
 	return strWrap(p.Cmdline())
 }
+
 func getUser(p *process.Process) []interface{} {
 	return strWrap(p.Username())
 }
+
 func cwd(p *process.Process) []interface{} {
 	return strWrap(p.Cwd())
 }
+
 func exe(p *process.Process) []interface{} {
 	return strWrap(p.Exe())
 }
+
 func terminal(p *process.Process) []interface{} {
 	return strWrap(p.Terminal())
 }
@@ -82,30 +90,39 @@ func numWrap(v interface{}, err error) []interface{} {
 	}
 	return []interface{}{v}
 }
+
 func cpuPercent(p *process.Process) []interface{} {
 	return numWrap(p.CPUPercent())
 }
+
 func memPercent(p *process.Process) []interface{} {
 	return numWrap(p.MemoryPercent())
 }
+
 func ioNice(p *process.Process) []interface{} {
 	return numWrap(p.IOnice())
 }
+
 func nice(p *process.Process) []interface{} {
 	return numWrap(p.Nice())
 }
+
 func numFDs(p *process.Process) []interface{} {
 	return numWrap(p.NumFDs())
 }
+
 func numThreads(p *process.Process) []interface{} {
 	return numWrap(p.NumThreads())
 }
+
 func ppid(p *process.Process) []interface{} {
 	return numWrap(p.Ppid())
 }
+
 func tgid(p *process.Process) []interface{} {
 	return numWrap(p.Tgid())
 }
+
 func sliceWrap(v []int32, err error) []interface{} {
 	if err != nil {
 		return []interface{}{0}
@@ -116,9 +133,11 @@ func sliceWrap(v []int32, err error) []interface{} {
 	}
 	return []interface{}{strings.Join(s, ",")}
 }
+
 func uids(p *process.Process) []interface{} {
 	return sliceWrap(p.Uids())
 }
+
 func gids(p *process.Process) []interface{} {
 	return sliceWrap(p.Gids())
 }
@@ -129,15 +148,19 @@ func boolWrap(v bool, err error) []interface{} {
 	}
 	return []interface{}{strconv.FormatBool(v)}
 }
+
 func foreGround(p *process.Process) []interface{} {
 	return boolWrap(p.Foreground())
 }
+
 func backGround(p *process.Process) []interface{} {
 	return boolWrap(p.Background())
 }
+
 func isRunning(p *process.Process) []interface{} {
 	return boolWrap(p.IsRunning())
 }
+
 func createTime(p *process.Process) []interface{} {
 	c, err := p.CreateTime()
 	if err != nil {

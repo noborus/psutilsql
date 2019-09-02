@@ -40,6 +40,7 @@ func TestNewProcessReader(t *testing.T) {
 		})
 	}
 }
+
 func TestProcessQuery(t *testing.T) {
 	type args struct {
 		ex    bool

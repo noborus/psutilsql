@@ -26,6 +26,7 @@ Default SQL is provided, so you can omit SQL if you select a command.`,
 		return psutilsql.QueryExec(Query, outFormat())
 	},
 }
+
 var (
 	// Version represents the version
 	Version string

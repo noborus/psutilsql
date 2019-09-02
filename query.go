@@ -85,7 +85,8 @@ func readerExec(reader Reader, query string, writer trdsql.Writer) error {
 
 // QueryExec actually executes the passed query and writes it to the writer.
 func QueryExec(query string, writer trdsql.Writer) error {
-	tables := trdsql.TableNames(query)
+	parsedQuery := trdsql.SQLFields(query)
+	tables, _ := trdsql.TableNames(parsedQuery)
 	if tables == nil {
 		return nil
 	}
