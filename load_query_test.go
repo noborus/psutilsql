@@ -1,12 +1,16 @@
 package psutilsql
 
 import (
+	"runtime"
 	"testing"
 
 	"github.com/noborus/trdsql"
 )
 
 func TestLoadAvgReader(t *testing.T) {
+	if runtime.GOOS != "windows" {
+		t.Skip("skipping specific test")
+	}
 	tests := []struct {
 		name    string
 		wantErr bool
@@ -28,6 +32,9 @@ func TestLoadAvgReader(t *testing.T) {
 }
 
 func TestLoadMiscReader(t *testing.T) {
+	if runtime.GOOS != "windows" {
+		t.Skip("skipping specific test")
+	}
 	tests := []struct {
 		name    string
 		wantErr bool
@@ -49,6 +56,9 @@ func TestLoadMiscReader(t *testing.T) {
 }
 
 func TestLoadQuery(t *testing.T) {
+	if runtime.GOOS != "windows" {
+		t.Skip("skipping specific test")
+	}
 	type args struct {
 		misc  bool
 		query string
