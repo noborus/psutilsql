@@ -1,6 +1,7 @@
 package psutilsql
 
 import (
+	"os"
 	"runtime"
 	"testing"
 
@@ -29,6 +30,9 @@ func TestHostInfoReader(t *testing.T) {
 }
 
 func TestHostUsersReader(t *testing.T) {
+	if utmpSkip() {
+		t.Skip("skipping tests that use utmp")
+	}
 	tests := []struct {
 		name    string
 		wantErr bool
@@ -106,9 +110,17 @@ func TestHostQuery(t *testing.T) {
 			if tt.name == "testTempera" && runtime.GOOS != "linux" {
 				t.Skip("skipping specific test")
 			}
+			if utmpSkip() {
+				t.Skip("skipping tests that use utmp")
+			}
 			if err := HostQuery(tt.args.tempera, tt.args.users, tt.args.query, tt.args.w); (err != nil) != tt.wantErr {
 				t.Errorf("HostQuery() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
+}
+
+func utmpSkip() bool {
+	_, err := os.Stat("/var/run/utmp")
+	return os.IsNotExist(err)
 }
