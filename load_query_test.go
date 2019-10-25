@@ -8,7 +8,7 @@ import (
 )
 
 func TestLoadAvgReader(t *testing.T) {
-	if runtime.GOOS != "windows" {
+	if runtime.GOOS == "windows" {
 		t.Skip("skipping specific test")
 	}
 	tests := []struct {
@@ -32,7 +32,7 @@ func TestLoadAvgReader(t *testing.T) {
 }
 
 func TestLoadMiscReader(t *testing.T) {
-	if runtime.GOOS != "windows" {
+	if runtime.GOOS == "windows" {
 		t.Skip("skipping specific test")
 	}
 	tests := []struct {
@@ -56,7 +56,7 @@ func TestLoadMiscReader(t *testing.T) {
 }
 
 func TestLoadQuery(t *testing.T) {
-	if runtime.GOOS != "windows" {
+	if runtime.GOOS == "windows" {
 		t.Skip("skipping specific test")
 	}
 	type args struct {
