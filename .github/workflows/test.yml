@@ -16,5 +16,5 @@ jobs:
         go-version: ${{ matrix.go-version }}
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
-    - name: Build
-      run: make
+    - name: Run tests
+      run: make test
