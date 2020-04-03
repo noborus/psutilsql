@@ -47,7 +47,6 @@ func Execute(version string, revision string) {
 	}
 	if err := rootCmd.Execute(); err != nil {
 		rootCmd.SetOutput(os.Stderr)
-		rootCmd.Println(err)
 		os.Exit(1)
 	}
 }
