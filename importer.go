@@ -1,6 +1,8 @@
 package psutilsql
 
 import (
+	"context"
+
 	"github.com/noborus/trdsql"
 )
 
@@ -27,8 +29,8 @@ func NewMultiImporter(readers ...Reader) (*MultiImporter, error) {
 	}, nil
 }
 
-// Import executes import.
-func (i *MultiImporter) Import(db *trdsql.DB, query string) (string, error) {
+// ImportContext executes import.
+func (i *MultiImporter) ImportContext(ctx context.Context, db *trdsql.DB, query string) (string, error) {
 	for _, r := range i.readers {
 		names, err := r.Names()
 		if err != nil {
@@ -42,14 +44,20 @@ func (i *MultiImporter) Import(db *trdsql.DB, query string) (string, error) {
 		if err != nil {
 			return query, err
 		}
-		err = db.CreateTable(tableName, names, types, true)
+		err = db.CreateTableContext(ctx, tableName, names, types, true)
 		if err != nil {
 			return query, err
 		}
-		err = db.Import(tableName, names, r)
+		err = db.ImportContext(ctx, tableName, names, r)
 		if err != nil {
 			return query, err
 		}
 	}
 	return query, nil
+}
+
+// Import executes import.
+func (i *MultiImporter) Import(db *trdsql.DB, query string) (string, error) {
+	ctx := context.Background()
+	return i.ImportContext(ctx, db, query)
 }
