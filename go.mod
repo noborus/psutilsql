@@ -13,7 +13,7 @@ require (
 	github.com/noborus/trdsql v0.8.0
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/shirou/gopsutil v3.21.4+incompatible
-	github.com/spf13/cobra v0.0.6
+	github.com/spf13/cobra v0.0.7
 	github.com/stretchr/testify v1.4.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.5 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
