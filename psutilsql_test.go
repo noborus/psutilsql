@@ -1,11 +1,11 @@
 package psutilsql
 
 import (
-	"io/ioutil"
+	"io"
 
 	"github.com/noborus/trdsql"
 )
 
 func nullWriter() trdsql.Writer {
-	return trdsql.NewWriter(trdsql.OutStream(ioutil.Discard))
+	return trdsql.NewWriter(trdsql.OutStream(io.Discard))
 }
