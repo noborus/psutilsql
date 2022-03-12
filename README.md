@@ -141,7 +141,7 @@ Use "psutilsql [command] --help" for more information about a command.
 
 --usage [disk]: disk usage
 
-| Path | Fstype | Total | Free | Used | UsedPercent | InodesTotal | InodesUsed |InodesFree | InodesUsedPercent |
+| Path | Fstype | Total | Free | Used | UsedPercent | InodesTotal | InodesUsed | InodesFree | InodesUsedPercent |
 |------|--------|-------|------|------|-------------|-------------|------------|------------|-------------------|
 
 ### docker

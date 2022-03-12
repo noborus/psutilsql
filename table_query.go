@@ -30,7 +30,7 @@ func TableReader() (*trdsql.SliceReader, error) {
 		{name: psProcess},
 		{name: psProcessEx},
 	}
-	if runtime.GOOS != "windows" {
+	if runtime.GOOS == "windows" {
 		tables = append(tables, tableNames{name: psWinservices})
 	}
 	return trdsql.NewSliceReader("pstable", tables), nil
