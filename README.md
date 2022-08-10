@@ -12,7 +12,7 @@ Therefore, CSV, JSON, LTSV, MarkDown, Raw, Vertical, and TBLN can be selected as
 ## install
 
 ```console
-$ go get -u github.com/noborus/psutilsql...
+go get -u github.com/noborus/psutilsql...
 ```
 
 psutilsql depends on [go-sqlite3](https://github.com/mattn/go-sqlite3).
@@ -21,7 +21,7 @@ Therefore, gcc is required to build.
 ## Usage
 
 ```console
-$ psutilsql command
+psutilsql command
 ```
 
 ### SQL
@@ -45,8 +45,9 @@ $ psutilsql "SELECT Total,Used,Free FROM virtualmemory"
 List of table names that can be used.
 
 Displayed with the following command:
+
 ```console
-$ psutilsql table
+psutilsql table
 ```
 
 |      name       |
@@ -67,7 +68,6 @@ $ psutilsql table
 | processex       |
 | swapmemory      |
 | virtualmemory   |
-
 
 ### Command
 
@@ -149,7 +149,6 @@ Use "psutilsql [command] --help" for more information about a command.
 | ContainerID | Name | Image | Status | Running |
 |-------------|------|-------|--------|---------|
 
-
 ### host
 
 --info: host information(default)
@@ -166,7 +165,6 @@ Use "psutilsql [command] --help" for more information about a command.
 
 | SensorKey | Temperature |
 |-----------|-------------|
-
 
 ### load
 
@@ -189,7 +187,6 @@ VirtualMemory(default)
 
 | Total | Used | Free | UsedPercent | Sin | Sout | PgIn | PgOut | PgFault |
 |-------|------|------|-------------|-----|------|------|-------|---------|
-
 
 ### net
 
