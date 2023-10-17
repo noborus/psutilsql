@@ -5,7 +5,7 @@ LDFLAGS := "-X main.version=$(shell git describe --tags --abbrev=0 --always) -X 
 all: build
 
 test: $(SRCS)
-	go test ./...
+	CGO_ENABLED=0 go test ./...
 
 build: $(BINARY_NAME)
 

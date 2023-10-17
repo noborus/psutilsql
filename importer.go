@@ -16,8 +16,8 @@ type Reader interface {
 	TableName() (string, error)
 	Names() ([]string, error)
 	Types() ([]string, error)
-	PreReadRow() [][]interface{}
-	ReadRow([]interface{}) ([]interface{}, error)
+	PreReadRow() [][]any
+	ReadRow([]any) ([]any, error)
 }
 
 // NewMultiImporter takes multiple readers as arguments and returns a MultiImporter.

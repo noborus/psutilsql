@@ -135,12 +135,12 @@ var processColumn = map[pColumnNum]pColumn{
 	},
 }
 
-func memoryInfoEx(p *process.Process) []interface{} {
+func memoryInfoEx(p *process.Process) []any {
 	mx, err := p.MemoryInfoEx()
 	if err != nil {
-		return []interface{}{0, 0, 0, 0, 0, 0, 0}
+		return []any{0, 0, 0, 0, 0, 0, 0}
 	}
-	return []interface{}{
+	return []any{
 		mx.RSS,
 		mx.VMS,
 		mx.Shared,
