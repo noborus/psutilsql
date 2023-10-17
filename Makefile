@@ -10,10 +10,10 @@ test: $(SRCS)
 build: $(BINARY_NAME)
 
 $(BINARY_NAME): $(SRCS)
-	CGO_ENABLED=0 go build -ldflags $(LDFLAGS) -o $(BINARY_NAME) ./cmd/psutilsql
+	go build -ldflags $(LDFLAGS) -o $(BINARY_NAME) ./cmd/psutilsql
 
 install:
-	CGO_ENABLED=0 go install -ldflags $(LDFLAGS) ./cmd/psutilsql
+	go install -ldflags $(LDFLAGS) ./cmd/psutilsql
 
 clean:
 	rm -f $(BINARY_NAME)

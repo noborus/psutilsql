@@ -1,7 +1,6 @@
 package psutilsql
 
 import (
-	"fmt"
 	"runtime"
 
 	"github.com/noborus/trdsql"
@@ -39,7 +38,7 @@ func TableReader() (*trdsql.SliceReader, error) {
 func definitionQuery(tableName string, w trdsql.Writer) error {
 	reader := psutilReader(tableName)
 	if reader == nil {
-		return fmt.Errorf("no such table")
+		return ErrNoSuchTable
 	}
 	tn, err := reader.TableName()
 	if err != nil {

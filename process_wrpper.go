@@ -42,139 +42,139 @@ const (
 type pColumn struct {
 	names   []string
 	types   []string
-	getFunc func(p *process.Process) []interface{}
+	getFunc func(p *process.Process) []any
 }
 
-func getPid(p *process.Process) []interface{} {
-	return []interface{}{p.Pid}
+func getPid(p *process.Process) []any {
+	return []any{p.Pid}
 }
 
-func strWrap(v string, err error) []interface{} {
+func strWrap(v string, err error) []any {
 	if err != nil {
-		return []interface{}{""}
+		return []any{""}
 	}
-	return []interface{}{v}
+	return []any{v}
 }
 
-func getName(p *process.Process) []interface{} {
+func getName(p *process.Process) []any {
 	return strWrap(p.Name())
 }
 
-func status(p *process.Process) []interface{} {
+func status(p *process.Process) []any {
 	return strWrap(p.Status())
 }
 
-func cmdLine(p *process.Process) []interface{} {
+func cmdLine(p *process.Process) []any {
 	return strWrap(p.Cmdline())
 }
 
-func getUser(p *process.Process) []interface{} {
+func getUser(p *process.Process) []any {
 	return strWrap(p.Username())
 }
 
-func cwd(p *process.Process) []interface{} {
+func cwd(p *process.Process) []any {
 	return strWrap(p.Cwd())
 }
 
-func exe(p *process.Process) []interface{} {
+func exe(p *process.Process) []any {
 	return strWrap(p.Exe())
 }
 
-func terminal(p *process.Process) []interface{} {
+func terminal(p *process.Process) []any {
 	return strWrap(p.Terminal())
 }
 
-func numWrap(v interface{}, err error) []interface{} {
+func numWrap(v any, err error) []any {
 	if err != nil {
-		return []interface{}{0}
+		return []any{0}
 	}
-	return []interface{}{v}
+	return []any{v}
 }
 
-func cpuPercent(p *process.Process) []interface{} {
+func cpuPercent(p *process.Process) []any {
 	return numWrap(p.CPUPercent())
 }
 
-func memPercent(p *process.Process) []interface{} {
+func memPercent(p *process.Process) []any {
 	return numWrap(p.MemoryPercent())
 }
 
-func ioNice(p *process.Process) []interface{} {
+func ioNice(p *process.Process) []any {
 	return numWrap(p.IOnice())
 }
 
-func nice(p *process.Process) []interface{} {
+func nice(p *process.Process) []any {
 	return numWrap(p.Nice())
 }
 
-func numFDs(p *process.Process) []interface{} {
+func numFDs(p *process.Process) []any {
 	return numWrap(p.NumFDs())
 }
 
-func numThreads(p *process.Process) []interface{} {
+func numThreads(p *process.Process) []any {
 	return numWrap(p.NumThreads())
 }
 
-func ppid(p *process.Process) []interface{} {
+func ppid(p *process.Process) []any {
 	return numWrap(p.Ppid())
 }
 
-func tgid(p *process.Process) []interface{} {
+func tgid(p *process.Process) []any {
 	return numWrap(p.Tgid())
 }
 
-func sliceWrap(v []int32, err error) []interface{} {
+func sliceWrap(v []int32, err error) []any {
 	if err != nil {
-		return []interface{}{0}
+		return []any{0}
 	}
 	s := make([]string, len(v))
 	for i, vv := range v {
 		s[i] = fmt.Sprint(vv)
 	}
-	return []interface{}{strings.Join(s, ",")}
+	return []any{strings.Join(s, ",")}
 }
 
-func uids(p *process.Process) []interface{} {
+func uids(p *process.Process) []any {
 	return sliceWrap(p.Uids())
 }
 
-func gids(p *process.Process) []interface{} {
+func gids(p *process.Process) []any {
 	return sliceWrap(p.Gids())
 }
 
-func boolWrap(v bool, err error) []interface{} {
+func boolWrap(v bool, err error) []any {
 	if err != nil {
-		return []interface{}{""}
+		return []any{""}
 	}
-	return []interface{}{strconv.FormatBool(v)}
+	return []any{strconv.FormatBool(v)}
 }
 
-func foreGround(p *process.Process) []interface{} {
+func foreGround(p *process.Process) []any {
 	return boolWrap(p.Foreground())
 }
 
-func backGround(p *process.Process) []interface{} {
+func backGround(p *process.Process) []any {
 	return boolWrap(p.Background())
 }
 
-func isRunning(p *process.Process) []interface{} {
+func isRunning(p *process.Process) []any {
 	return boolWrap(p.IsRunning())
 }
 
-func createTime(p *process.Process) []interface{} {
+func createTime(p *process.Process) []any {
 	c, err := p.CreateTime()
 	if err != nil {
-		return []interface{}{0}
+		return []any{0}
 	}
-	return []interface{}{time.Unix(c/1000, 0)}
+	return []any{time.Unix(c/1000, 0)}
 }
 
-func memoryInfo(p *process.Process) []interface{} {
+func memoryInfo(p *process.Process) []any {
 	mx, err := p.MemoryInfo()
 	if err != nil {
-		return []interface{}{0, 0, 0, 0, 0, 0}
+		return []any{0, 0, 0, 0, 0, 0}
 	}
-	return []interface{}{
+	return []any{
 		mx.RSS,
 		mx.VMS,
 		mx.Data,
@@ -184,12 +184,12 @@ func memoryInfo(p *process.Process) []interface{} {
 	}
 }
 
-func ioCounters(p *process.Process) []interface{} {
+func ioCounters(p *process.Process) []any {
 	io, err := p.IOCounters()
 	if err != nil {
-		return []interface{}{0, 0, 0, 0}
+		return []any{0, 0, 0, 0}
 	}
-	return []interface{}{
+	return []any{
 		io.ReadCount,
 		io.WriteCount,
 		io.ReadBytes,
@@ -198,12 +198,12 @@ func ioCounters(p *process.Process) []interface{} {
 }
 
 /*
-func pageFaults(p *process.Process) []interface{} {
+func pageFaults(p *process.Process) []any {
 	pf, err := p.PageFaults
 	if err != nil {
-		return []interface{}{0, 0, 0, 0}
+		return []any{0, 0, 0, 0}
 	}
-	return []interface{}{
+	return []any{
 		pf.MinorFaults,
 		pf.MajorFaults,
 		pf.ChildMinorFaults,

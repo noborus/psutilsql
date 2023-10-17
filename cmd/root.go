@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"errors"
 	"os"
 	"strings"
 
@@ -9,6 +9,10 @@ import (
 
 	"github.com/noborus/trdsql"
 	"github.com/spf13/cobra"
+)
+
+var (
+	ErrNoQuery = errors.New("require query")
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -21,7 +25,7 @@ SQL can be executed on the information acquired using gopsutil library.
 Default SQL is provided, so you can omit SQL if you select a command.`,
 	RunE: func(c *cobra.Command, args []string) error {
 		if len(Query) == 0 && len(args) == 0 {
-			return fmt.Errorf("require query")
+			return ErrNoQuery
 		}
 		return psutilsql.QueryExec(Query, outFormat())
 	},

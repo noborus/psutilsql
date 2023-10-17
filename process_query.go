@@ -1,7 +1,6 @@
 package psutilsql
 
 import (
-	"fmt"
 	"io"
 	"runtime"
 
@@ -19,7 +18,7 @@ func NewProcessReader(ex bool) (*ProcessReader, error) {
 		if runtime.GOOS == "linux" {
 			columns = []pColumnNum{PID, NAME, CPU, MEM, STATUS, START, USER, MEMORYINFOEX, COMMAND}
 		} else {
-			return nil, fmt.Errorf("not supported")
+			return nil, ErrNotSupport
 		}
 	}
 	for _, cn := range columns {
@@ -33,9 +32,9 @@ func NewProcessReader(ex bool) (*ProcessReader, error) {
 	if err != nil {
 		return nil, err
 	}
-	pr.data = make([][]interface{}, len(processes))
+	pr.data = make([][]any, len(processes))
 	for i, p := range processes {
-		pr.data[i] = []interface{}{}
+		pr.data[i] = []any{}
 		for _, getFunc := range pr.funcs {
 			v := getFunc(p)
 			pr.data[i] = append(pr.data[i], v...)
@@ -51,8 +50,8 @@ type ProcessReader struct {
 	tableName string
 	names     []string
 	types     []string
-	funcs     []func(p *process.Process) []interface{}
-	data      [][]interface{}
+	funcs     []func(p *process.Process) []any
+	data      [][]any
 }
 
 // TableName returns TableName.
@@ -71,12 +70,12 @@ func (p *ProcessReader) Types() ([]string, error) {
 }
 
 // PreReadRow is returns entity of the data.
-func (p *ProcessReader) PreReadRow() [][]interface{} {
+func (p *ProcessReader) PreReadRow() [][]any {
 	return p.data
 }
 
 // ReadRow only returns EOF.
-func (p *ProcessReader) ReadRow(row []interface{}) ([]interface{}, error) {
+func (p *ProcessReader) ReadRow(row []any) ([]any, error) {
 	return nil, io.EOF
 }
 
