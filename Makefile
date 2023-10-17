@@ -5,15 +5,15 @@ LDFLAGS := "-X main.version=$(shell git describe --tags --abbrev=0 --always) -X 
 all: build
 
 test: $(SRCS)
-	CGO_ENABLED=0 go test ./...
+	go test ./...
 
 build: $(BINARY_NAME)
 
 $(BINARY_NAME): $(SRCS)
-	CGO_ENABLED=0 go build -ldflags $(LDFLAGS) -o $(BINARY_NAME) ./cmd/psutilsql
+	go build -ldflags $(LDFLAGS) -o $(BINARY_NAME) ./cmd/psutilsql
 
 install:
-	CGO_ENABLED=0 go install -ldflags $(LDFLAGS) ./cmd/psutilsql
+	go install -ldflags $(LDFLAGS) ./cmd/psutilsql
 
 clean:
 	rm -f $(BINARY_NAME)
