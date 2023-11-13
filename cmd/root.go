@@ -78,31 +78,7 @@ func init() {
 }
 
 func outFormat() trdsql.Writer {
-	var format trdsql.Format
-	switch strings.ToUpper(OutFormat) {
-	case "CSV":
-		format = trdsql.CSV
-	case "LTSV":
-		format = trdsql.LTSV
-	case "JSON":
-		format = trdsql.JSON
-	case "JSONL":
-		format = trdsql.JSONL
-	case "TBLN":
-		format = trdsql.TBLN
-	case "RAW":
-		format = trdsql.RAW
-	case "MD":
-		format = trdsql.MD
-	case "AT":
-		format = trdsql.AT
-	case "VF":
-		format = trdsql.VF
-	case "YAML":
-		format = trdsql.YAML
-	default:
-		format = trdsql.AT
-	}
+	format := trdsql.OutputFormat(strings.ToLower(OutFormat))
 	w := trdsql.NewWriter(
 		trdsql.OutFormat(format),
 		trdsql.OutDelimiter(Delimiter),
