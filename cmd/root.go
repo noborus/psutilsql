@@ -78,7 +78,7 @@ func init() {
 }
 
 func outFormat() trdsql.Writer {
-	format := trdsql.OutputFormat(strings.ToLower(OutFormat))
+	format := trdsql.OutputFormat(strings.ToUpper(OutFormat))
 	w := trdsql.NewWriter(
 		trdsql.OutFormat(format),
 		trdsql.OutDelimiter(Delimiter),
