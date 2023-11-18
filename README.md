@@ -106,11 +106,12 @@ Available Commands:
   process     process information
   query       SQL query command
   table       table list
+  version     Print the version number of psutilsql
 
 Flags:
   -d, --Delimiter string   output delimiter (CSV only) (default ",")
   -O, --Header             output header (CSV only)
-  -o, --OutFormat string   output format=at|csv|ltsv|json|tbln|raw|md|vf (default "at")
+  -o, --OutFormat string   output format=[AT|CSV|LTSV|JSON|JSONL|TBLN|RAW|MD|VF|YAML] (default "AT")
   -q, --Query string       query
   -h, --help               help for psutilsql
   -t, --toggle             Help message for toggle

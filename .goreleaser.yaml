@@ -20,7 +20,6 @@ builds:
     ignore:
       - goos: windows
         goarch: "386"
-
 archives:
   - format: tar.gz
     # this name template makes the OS and Arch compatible with the results of uname.
@@ -45,6 +44,16 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+nfpms:
+  -
+    package_name: "psutilsql"
+    homepage: "https://github.com/noborus/psutilsql"
+    maintainer: "Noboru Saito <noborusai@gmail.com>"
+    description: "CLI tool that can be processed by SQL using"
+    license: "MIT"
+    formats:
+      - deb
+      - rpm
 brews:
   -
     name: psutilsql
