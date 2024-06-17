@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/noborus/trdsql v1.0.0
 	github.com/shirou/gopsutil v3.21.11+incompatible
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 )
 
 require (
