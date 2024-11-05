@@ -11,9 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	ErrNoQuery = errors.New("require query")
-)
+var ErrNoQuery = errors.New("require query")
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
