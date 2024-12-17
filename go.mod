@@ -2,8 +2,6 @@ module github.com/noborus/psutilsql
 
 go 1.22.0
 
-toolchain go1.22.0
-
 require (
 	github.com/noborus/trdsql v1.1.0
 	github.com/shirou/gopsutil/v4 v4.24.11
