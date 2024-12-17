@@ -2,7 +2,7 @@ package psutilsql
 
 import (
 	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/disk"
+	"github.com/shirou/gopsutil/v4/disk"
 )
 
 // DiskPartitionReader returns disk.Partitions result as trdsql.SliceReader.

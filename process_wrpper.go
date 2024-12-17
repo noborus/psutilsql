@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/shirou/gopsutil/process"
+	"github.com/shirou/gopsutil/v4/process"
 )
 
 type pColumnNum int
@@ -61,7 +61,15 @@ func getName(p *process.Process) []any {
 }
 
 func status(p *process.Process) []any {
-	return strWrap(p.Status())
+	status, err := p.Status()
+	if err != nil {
+		return []any{""}
+	}
+	result := make([]any, len(status))
+	for i, v := range status {
+		result[i] = v
+	}
+	return result
 }
 
 func cmdLine(p *process.Process) []any {
@@ -123,7 +131,7 @@ func tgid(p *process.Process) []any {
 	return numWrap(p.Tgid())
 }
 
-func sliceWrap(v []int32, err error) []any {
+func sliceWrap(v []uint32, err error) []any {
 	if err != nil {
 		return []any{0}
 	}

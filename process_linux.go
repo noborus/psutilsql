@@ -4,7 +4,7 @@
 package psutilsql
 
 import (
-	"github.com/shirou/gopsutil/process"
+	"github.com/shirou/gopsutil/v4/process"
 )
 
 var processColumn = map[pColumnNum]pColumn{

@@ -5,7 +5,7 @@ import (
 	"runtime"
 
 	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/process"
+	"github.com/shirou/gopsutil/v4/process"
 )
 
 // NewProcessReader returns process.Processes result as ProcessReader.

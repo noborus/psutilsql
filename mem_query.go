@@ -2,7 +2,7 @@ package psutilsql
 
 import (
 	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/mem"
+	"github.com/shirou/gopsutil/v4/mem"
 )
 
 // VirtualMemoryReader returns mem.VirtualMemory result as trdsql.SliceReader.

@@ -2,7 +2,7 @@ package psutilsql
 
 import (
 	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/cpu"
+	"github.com/shirou/gopsutil/v4/cpu"
 )
 
 // CPUTimeReader returns cpu.Times result as trdsql.SliceReader.

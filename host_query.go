@@ -2,7 +2,8 @@ package psutilsql
 
 import (
 	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/host"
+	"github.com/shirou/gopsutil/v4/host"
+	"github.com/shirou/gopsutil/v4/sensors"
 )
 
 // HostInfoReader returns host.Info result as trdsql.SliceReader.
@@ -25,7 +26,7 @@ func HostUsersReader() (*trdsql.SliceReader, error) {
 
 // HostTemperatureReader returns host.SensorsTemperatures result as trdsql.SliceReader.
 func HostTemperatureReader() (*trdsql.SliceReader, error) {
-	v, err := host.SensorsTemperatures()
+	v, err := sensors.SensorsTemperatures()
 	if err != nil {
 		return nil, err
 	}
