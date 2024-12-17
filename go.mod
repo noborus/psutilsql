@@ -6,7 +6,6 @@ toolchain go1.23.4
 
 require (
 	github.com/noborus/trdsql v1.1.0
-	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/shirou/gopsutil/v4 v4.24.11
 	github.com/spf13/cobra v1.8.1
 )
