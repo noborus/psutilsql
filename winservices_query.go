@@ -5,7 +5,7 @@ package psutilsql
 
 import (
 	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/winservices"
+	"github.com/shirou/gopsutil/v4/winservices"
 )
 
 // WinservicesReader returns winservices.ListServices as trdsql.SliceReader.

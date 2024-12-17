@@ -2,7 +2,7 @@ package psutilsql
 
 import (
 	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/docker"
+	"github.com/shirou/gopsutil/v4/docker"
 )
 
 // DockerReader returns docker.GetDockerStat result as trdsql.SliceReader.

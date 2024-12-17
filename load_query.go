@@ -2,7 +2,7 @@ package psutilsql
 
 import (
 	"github.com/noborus/trdsql"
-	"github.com/shirou/gopsutil/load"
+	"github.com/shirou/gopsutil/v4/load"
 )
 
 // LoadAvgReader returns load.Avg result as trdsql.SliceReader.
