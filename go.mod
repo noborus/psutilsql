@@ -6,7 +6,7 @@ toolchain go1.24.2
 
 require (
 	github.com/noborus/trdsql v1.1.0
-	github.com/shirou/gopsutil/v4 v4.25.7
+	github.com/shirou/gopsutil/v4 v4.25.8
 	github.com/spf13/cobra v1.9.1
 )
 
@@ -48,7 +48,7 @@ require (
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	golang.org/x/crypto v0.37.0 // indirect
 	golang.org/x/exp v0.0.0-20250408133849-7e4ce0ab07d0 // indirect
-	golang.org/x/sys v0.34.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
 	golang.org/x/term v0.31.0 // indirect
 	gonum.org/v1/gonum v0.16.0 // indirect
 	modernc.org/libc v1.64.0 // indirect
