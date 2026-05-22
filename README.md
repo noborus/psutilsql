@@ -18,6 +18,29 @@ go get -u github.com/noborus/psutilsql...
 psutilsql depends on [go-sqlite3](https://github.com/mattn/go-sqlite3).
 Therefore, gcc is required to build.
 
+### Binary Downloads
+
+Precompiled binaries for psutilsql are available for various platforms and architectures. You can download them from the [GitHub Releases](https://github.com/noborus/psutilsql/releases) page.
+
+The following binaries can be downloaded from release.
+
+- Darwin_arm64
+- Darwin_x86_64
+- Linux_arm64
+- Linux_i386
+- Linux_x86_64
+- Windows_arm64
+- Windows_x86_64
+
+To install a binary, download the appropriate file for your system, extract it, and place the `psutilsql` executable in a directory included in your system's `PATH`.
+
+For example, on a Unix-like system, you might do:
+
+```console
+tar xvf psutilsql_Darwin_x86_64.tar.gz
+mv psutilsql /usr/local/bin/
+```
+
 ## Usage
 
 ```console
@@ -30,8 +53,8 @@ The query command(\<query\> can be omitted) can execute SQL.
 
 ```console
 $ psutilsql query "SELECT Total,Used,Free FROM virtualmemory"
-or     
-$ psutilsql "SELECT Total,Used,Free FROM virtualmemory"       
+or
+$ psutilsql "SELECT Total,Used,Free FROM virtualmemory"
 
 +-------------+------------+------------+
 |    Total    |    Used    |    Free    |
