@@ -18,6 +18,45 @@ go get -u github.com/noborus/psutilsql...
 psutilsql depends on [go-sqlite3](https://github.com/mattn/go-sqlite3).
 Therefore, gcc is required to build.
 
+### Linux packages (deb/rpm)
+
+Linux users can install prebuilt packages from the [GitHub Releases](https://github.com/noborus/psutilsql/releases) page.
+
+- Debian/Ubuntu: `*.deb`
+- RHEL/Fedora/openSUSE: `*.rpm`
+
+Asset names are published like this:
+
+- `psutilsql_<version>_linux_amd64.deb`
+- `psutilsql_<version>_linux_amd64.rpm`
+- `psutilsql_<version>_linux_386.deb`
+- `psutilsql_<version>_linux_386.rpm`
+- `psutilsql_<version>_linux_arm64.deb`
+- `psutilsql_<version>_linux_arm64.rpm`
+
+Example:
+
+```console
+# Debian/Ubuntu
+sudo dpkg -i psutilsql_<version>_linux_amd64.deb
+
+# RHEL/Fedora/openSUSE
+sudo rpm -i psutilsql_<version>_linux_amd64.rpm
+```
+
+If dependencies are missing on Debian/Ubuntu, run:
+
+```console
+sudo apt-get install -f
+```
+
+Download and install example (`v0.1.0`, amd64):
+
+```console
+curl -fLO https://github.com/noborus/psutilsql/releases/download/v0.1.0/psutilsql_0.1.0_linux_amd64.deb
+sudo dpkg -i psutilsql_0.1.0_linux_amd64.deb
+```
+
 ### Binary Downloads
 
 Precompiled binaries for psutilsql are available for various platforms and architectures. You can download them from the [GitHub Releases](https://github.com/noborus/psutilsql/releases) page.

@@ -36,6 +36,9 @@ archives:
     format_overrides:
     - goos: windows
       formats: [zip]
+release:
+  extra_files:
+    - glob: ./dist/homebrew/*.rb
 checksum:
   name_template: 'checksums.txt'
 changelog:
@@ -57,6 +60,9 @@ nfpms:
 brews:
   -
     name: psutilsql
+    repository:
+      owner: noborus
+      name: homebrew-tap
     skip_upload: true
     homepage: https://github.com/noborus/psutilsql
     description: "CLI tool that can be processed by SQL using"
