@@ -3,7 +3,7 @@ module github.com/noborus/psutilsql
 go 1.25.0
 
 require (
-	github.com/noborus/trdsql v1.2.1
+	github.com/noborus/trdsql v1.2.3
 	github.com/shirou/gopsutil/v4 v4.26.5
 	github.com/spf13/cobra v1.10.2
 )
